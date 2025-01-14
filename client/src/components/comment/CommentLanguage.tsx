@@ -1,15 +1,16 @@
 import { LANGUAGE_CONFIG } from "@/constants/language";
 import { cn } from "@/lib/utils";
-import { useCodeEditorStore } from "@/store/useCodeEditor.store";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDownIcon } from "lucide-react";
+import { CodeIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-const LanguageSelector = () => {
-	const [isOpen, setOpen] = useState(false);
-	const { language, setLanguage } = useCodeEditorStore();
+interface IProps {
+	handleLanguage: (value: string) => void;
+}
+const CommentLanguage = ({ handleLanguage }: IProps) => {
+	const [open, setOpen] = useState(false);
 	const dropdownRef = useRef<HTMLDivElement | null>(null);
-	const currentLanguage = LANGUAGE_CONFIG[language];
+
 	useEffect(() => {
 		const handleClickOutsize = (event: MouseEvent) => {
 			if (
@@ -25,48 +26,27 @@ const LanguageSelector = () => {
 		return () => document.removeEventListener("mousedown", handleClickOutsize);
 	}, []);
 	return (
-		<div className="relative " ref={dropdownRef}>
-			<motion.button
-				whileHover={{ scale: 1.02 }}
-				whileTap={{ scale: 0.98 }}
-				onClick={() => setOpen((prev) => !prev)}
-				className={cn(
-					"relative w-40 group flex items-center gap-2 px-2.5 py-1.5 bg-[#1e1e2e]/80 hover:bg-[#262637] rounded-lg transition-lg transition-all duration-200 border border-gray-800/50 hover:border-gray-700 text-sm",
-				)}
+		<div
+			className=" text-xs text-[#808086] space-y-1 relative"
+			ref={dropdownRef}
+		>
+			<div
+				onClick={() => {
+					setOpen((prev) => !prev);
+				}}
+				className="p-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-200 group relative border border-gray-500/50 cursor-pointer "
 			>
-				<div
-					className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"
-					aria-hidden="true"
-				></div>
-
-				<div className="size-4 rounded-md bg-gray-800/50 p-0.5 group-hover:scale-110 transition-transform">
-					<img
-						src={currentLanguage.logoPath}
-						alt="programming language logo"
-						className="w-full h-full object-contain relative z-10"
-					/>
-				</div>
-
-				<span className="text-gray-300 min-w-20 text-left group-hover:text-white transition-colors text-xs">
-					{currentLanguage?.label}
-				</span>
-
-				<ChevronDownIcon
-					className={cn(
-						`size-4 text-gray-400 transition-all duration-300 group-hover:text-gray-300`,
-						isOpen ? "rotate-180" : "",
-					)}
-				/>
-			</motion.button>
+				<CodeIcon className=" size-4 text-gray-400 group-hover:text-gray-300" />
+			</div>
 
 			<AnimatePresence>
-				{isOpen && (
+				{open && (
 					<motion.div
 						initial={{ opacity: 0, y: 8, scale: 0.96 }}
 						animate={{ opacity: 1, y: 0, scale: 1 }}
 						exit={{ opacity: 0, y: 8, scale: 0.96 }}
 						transition={{ duration: 0.2 }}
-						className="absolute top-full left-0 w-full mt-2 min-w-[240px] bg-[#1e1e2e]/95 backdrop-blur-xl rounded-md border border-[#313244] shadow-2xl py-2 z-50"
+						className="absolute bottom-0 left-full w-full mt-2 min-w-[240px] bg-[#1e1e2e]/95 backdrop-blur-xl rounded-md border border-[#313244] shadow-2xl py-2 z-50"
 					>
 						<div className="px-2 pb-1 mb-1 border-b border-gray-800/50">
 							<p className="text-xs font-medium text-gray-400 px-2">
@@ -85,14 +65,13 @@ const LanguageSelector = () => {
 										transition={{ delay: index * 0.1 }}
 										className={cn(
 											"relative group w-full flex items-center gap-3 px-2 py-1 hover:bg-[#262637] transition-all duration-200",
-											currentLanguage.id === t.id
-												? "bg-blue-500/10 text-blue-400"
-												: "text-gray-300",
 										)}
 										onClick={() => {
-											setLanguage(t.id);
 											setOpen(false);
+											console.log("t", t);
+											handleLanguage(t.monacoLanguage);
 										}}
+										type="button"
 										// disabled={isLocked}
 									>
 										{/* bg gradient */}
@@ -106,9 +85,6 @@ const LanguageSelector = () => {
 											className={cn(
 												`
                 flex items-center justify-center size-6 rounded-lg group-hover:scale-110 transition-all duration-200`,
-												language === t.id
-													? "bg-blue-500/10 text-blue-400"
-													: "bg-gray-800/50 text-gray-400",
 											)}
 										>
 											<div
@@ -125,17 +101,6 @@ const LanguageSelector = () => {
 										<span className="flex-1 text-left group-hover:text-white transition-colors text-sm">
 											{t.label}
 										</span>
-
-										{language === t.id && (
-											<motion.div
-												className="absolute inset-0 border-2 border-blue-500/30 rounded-lg"
-												transition={{
-													type: "spring",
-													bounce: 0.2,
-													duration: 0.6,
-												}}
-											/>
-										)}
 									</motion.button>
 								);
 							})}
@@ -147,4 +112,4 @@ const LanguageSelector = () => {
 	);
 };
 
-export default LanguageSelector;
+export default CommentLanguage;

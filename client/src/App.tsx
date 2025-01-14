@@ -6,9 +6,9 @@ function App() {
 	const router = createBrowserRouter([...RootRouter]);
 
 	return (
-		<>
+		<div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-950 text-gray-100">
 			<RouterProvider router={router} />
-		</>
+		</div>
 	);
 }
 

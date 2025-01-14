@@ -136,7 +136,7 @@ const OutputPanel = () => {
 
 export default OutputPanel;
 
-function RunningCodeSkeleton() {
+export function RunningCodeSkeleton() {
 	return (
 		<div className="space-y-4 animate-pulse">
 			<div className="space-y-2">

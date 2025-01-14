@@ -23,7 +23,7 @@ const TooltipComponent = ({
 	return (
 		<TooltipProvider>
 			<Tooltip delayDuration={delay}>
-				<TooltipTrigger>{children}</TooltipTrigger>
+				<TooltipTrigger type="button">{children}</TooltipTrigger>
 				<TooltipContent side={side} align={align}>
 					{label}
 				</TooltipContent>

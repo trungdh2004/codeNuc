@@ -14,6 +14,7 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -26,6 +27,7 @@ const formSchema = z.object({
 			message: "Chưa nhập tiêu đề",
 		})
 		.max(50),
+	description: z.string(),
 });
 
 interface IProps {
@@ -38,13 +40,14 @@ const ShareCodeDialog = ({ open, handleClose }: IProps) => {
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			title: "",
+			description: "",
 		},
 	});
 
 	function onSubmit(values: z.infer<typeof formSchema>) {
 		// Do something with the form values.
 		// ✅ This will be type-safe and validated.
-		console.log(values);
+		console.log(JSON.stringify(values));
 	}
 	return (
 		<Dialog open={open} onOpenChange={handleClose}>
@@ -71,6 +74,23 @@ const ShareCodeDialog = ({ open, handleClose }: IProps) => {
 												placeholder="CodeNuc...."
 												{...field}
 												className="text-white bg-[#181825] border border-[#313244] focus:outline-none focus:ring-2 focus:ring-blue-500"
+											/>
+										</FormControl>
+										<FormMessage />
+									</FormItem>
+								)}
+							/>
+							<FormField
+								control={form.control}
+								name="description"
+								render={({ field }) => (
+									<FormItem>
+										<FormLabel className="text-sm text-white">Mô tả</FormLabel>
+										<FormControl>
+											<Textarea
+												placeholder="CodeNuc...."
+												{...field}
+												className="text-white bg-[#181825] border border-[#313244] focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-60 resize-none"
 											/>
 										</FormControl>
 										<FormMessage />

@@ -54,3 +54,13 @@ export interface CodeEditorState {
 	setFontSize: (fontSize: number) => void;
 	runCode: () => Promise<void>;
 }
+
+export interface Snippet {
+	id: string;
+	_creationTime: number;
+	userId: string;
+	language: string;
+	code: string;
+	title: string;
+	userName: string;
+}
