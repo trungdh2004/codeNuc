@@ -64,3 +64,18 @@ export interface Snippet {
 	title: string;
 	userName: string;
 }
+
+export interface SearchBase {
+	pageIndex: number;
+	pageSize: number;
+	keyword: string;
+}
+
+export interface ResponseBase<T> {
+	pageIndex: number;
+	pageSize: number;
+	totalPages: number;
+	totalOptionPage: number;
+	totalAllOptions: number;
+	content: T[];
+}

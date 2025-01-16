@@ -40,6 +40,7 @@ const CodeBlock = ({ language, code }: { language: string; code: string }) => {
 					}}
 					showLineNumbers={true}
 					wrapLines={true} // wrap long lines
+					PreTag="div"
 				>
 					{trimmedCode}
 				</SyntaxHighlighter>

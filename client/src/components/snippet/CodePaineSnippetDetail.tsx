@@ -61,7 +61,7 @@ const CodePaineSnippetDetail = ({
 				options={{
 					minimap: { enabled: false },
 					fontSize: 14,
-					readOnly: false,
+					readOnly: true,
 					automaticLayout: true,
 					scrollBeyondLastLine: false,
 					padding: { top: 16 },

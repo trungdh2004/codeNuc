@@ -15,8 +15,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { createSnippetApi } from "@/services/snippet.service";
+import { useCodeEditorStore } from "@/store/useCodeEditor.store";
+import useModelLoading from "@/store/useModelLoading.store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 const formSchema = z.object({
@@ -27,7 +31,7 @@ const formSchema = z.object({
 			message: "Chưa nhập tiêu đề",
 		})
 		.max(50),
-	description: z.string(),
+	description: z.string().optional(),
 });
 
 interface IProps {
@@ -36,6 +40,8 @@ interface IProps {
 }
 
 const ShareCodeDialog = ({ open, handleClose }: IProps) => {
+	const { language, getCode } = useCodeEditorStore();
+	const { setClose, setOpen } = useModelLoading();
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -44,7 +50,27 @@ const ShareCodeDialog = ({ open, handleClose }: IProps) => {
 		},
 	});
 
-	function onSubmit(values: z.infer<typeof formSchema>) {
+	async function onSubmit(values: z.infer<typeof formSchema>) {
+		setOpen();
+		try {
+			await createSnippetApi({
+				...values,
+				language,
+				code: getCode(),
+			});
+
+			toast.success("Đăng tải thành công");
+			handleClose();
+			form.reset({
+				title: "",
+				description: "",
+			});
+		} catch (error: unknown) {
+			const err = error as Error;
+			toast.error(err.message);
+		} finally {
+			setClose();
+		}
 		// Do something with the form values.
 		// ✅ This will be type-safe and validated.
 		console.log(JSON.stringify(values));

@@ -1,18 +1,22 @@
 import TooltipComponent from "@/components/common/TooltipComponent";
 import { useCodeEditorStore } from "@/store/useCodeEditor.store";
 import {
-  AlertTriangle,
-  CheckCircle,
-  CircleHelp,
-  Clock,
-  Copy,
-  ForwardIcon,
-  Terminal,
+	AlertTriangle,
+	CheckCircle,
+	CircleHelp,
+	Clock,
+	Copy,
+	ForwardIcon,
+	Terminal,
 } from "lucide-react";
 import { useState } from "react";
 import ShareCodeDialog from "./ShareCodeDialog";
+import { useAuthContext } from "@/context/AuthProvider";
+import useModelLogin from "@/store/useModelLogin";
 
 const OutputPanel = () => {
+	const { isLoggedIn } = useAuthContext();
+	const { setOpen } = useModelLogin();
 	const { output, error, isRunning } = useCodeEditorStore();
 	const [isCopied, setIsCopied] = useState(false);
 	const [isShare, setShare] = useState(false);
@@ -60,6 +64,10 @@ const OutputPanel = () => {
 							<TooltipComponent label="Chia sẻ code">
 								<button
 									onClick={() => {
+										if (!isLoggedIn) {
+											setOpen();
+											return;
+										}
 										setShare(true);
 									}}
 									className="flex items-center gap-1.5 p-2 text-xs text-white hover:text-gray-300 bg-gradient-to-r

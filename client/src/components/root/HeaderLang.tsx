@@ -1,9 +1,9 @@
-import { Blocks, Code2, Sparkles } from "lucide-react";
-import React from "react";
+import { Blocks, Code2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import ThemeSelector from "./editor/ThemeSelector";
+
 import LanguageSelector from "./editor/LanguageSelector";
-import HeaderProfile from "./editor/HeaderProfile";
+import ThemeSelector from "./editor/ThemeSelector";
+import ButtonProfile from "../ButtonProfile";
 
 const HeaderLang = () => {
 	return (
@@ -31,7 +31,7 @@ const HeaderLang = () => {
 								CodeNuc
 							</span>
 							<span className="block text-[10px] text-blue-400/60 font-medium">
-								Interactive Code Editor
+								Trình soạn mã code
 							</span>
 						</div>
 					</Link>
@@ -52,7 +52,7 @@ const HeaderLang = () => {
 								className="text-xs font-medium relative z-10 group-hover:text-white
                  transition-colors"
 							>
-								Snippets
+								Khám phá
 							</span>
 						</Link>
 					</nav>
@@ -61,27 +61,11 @@ const HeaderLang = () => {
 				<div className="flex items-center gap-4">
 					<div className="flex items-center gap-3">
 						<ThemeSelector />
-						<LanguageSelector hasAccess={false} />
+						<LanguageSelector />
 					</div>
 
-					<Link
-						to="/pricing"
-						className="flex items-center gap-2 px-4 py-1.5 rounded-lg border border-amber-500/20 hover:border-amber-500/40 bg-gradient-to-r from-amber-500/10 
-                to-orange-500/10 hover:from-amber-500/20 hover:to-orange-500/20 
-                transition-all duration-300"
-					>
-						<Sparkles className="w-4 h-4 text-amber-400 hover:text-amber-300" />
-						<span className="text-sm font-medium text-amber-400/90 hover:text-amber-300">
-							Pro
-						</span>
-					</Link>
-
-					{/* <SignedIn>
-            <RunButton />
-          </SignedIn> */}
-
 					<div className="pl-3 border-l border-gray-800">
-						<HeaderProfile />
+						<ButtonProfile />
 					</div>
 				</div>
 			</div>

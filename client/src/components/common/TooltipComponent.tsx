@@ -12,6 +12,7 @@ interface IProps {
 	side?: "top" | "right" | "bottom" | "left";
 	align?: "center" | "end" | "start";
 	delay?: number;
+	className?: string;
 }
 const TooltipComponent = ({
 	children,
@@ -19,12 +20,13 @@ const TooltipComponent = ({
 	side = "top",
 	align = "center",
 	delay = 0,
+	className,
 }: IProps) => {
 	return (
 		<TooltipProvider>
 			<Tooltip delayDuration={delay}>
 				<TooltipTrigger type="button">{children}</TooltipTrigger>
-				<TooltipContent side={side} align={align}>
+				<TooltipContent side={side} align={align} className={className}>
 					{label}
 				</TooltipContent>
 			</Tooltip>

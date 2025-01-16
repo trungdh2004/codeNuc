@@ -1,30 +1,34 @@
 import Comments from "@/components/comment/Comments";
 import CodeSnippetDetail from "@/components/snippet/CodeSnippetDetail";
 import SnippetDetailSkeleton from "@/components/SnippetDetailSkeleton";
+import { detailSnippetApi } from "@/services/snippet.service";
+import { SnippetResponse } from "@/types/snippet.type";
+import { useQuery } from "@tanstack/react-query";
 import { Clock, MessageSquare, User } from "lucide-react";
-import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "sonner";
 
 const SnippetDetail = () => {
-	const [data, setData] = useState({
-		id: "1",
-		title: "Xin chào",
-		language: "javascript",
-		userName: "trung nè",
-		_creationTime: new Date().getTime(),
-		userId: "123",
-		code: `// JavaScript Playground
-const numbers = [1, 2, 3, 4, 5];
-
-// Map numbers to their squares
-const squares = numbers.map(n => n * n);
-console.log('Original numbers:', numbers);
-console.log('Squared numbers:', squares);`,
-		description: "Chào bạn nhé\nmình là trung đây\nhihi bạn nshe\nchào nhé",
+	const { id } = useParams();
+	const router = useNavigate();
+	const { isLoading, data, error } = useQuery<SnippetResponse>({
+		queryKey: ["detailSnippet", id],
+		queryFn: async () => {
+			const { data } = await detailSnippetApi(id as string);
+			// await new Promise((resolve) => {
+			// 	setTimeout(resolve, 3000);
+			// });
+			return data;
+		},
 	});
-	const [loading, setLoading] = useState(false);
 
-	if (loading) {
+	if (isLoading) {
 		return <SnippetDetailSkeleton />;
+	}
+
+	if (error) {
+		toast.error("Có lỗi xảy ra ");
+		return router("/404");
 	}
 
 	return (
@@ -34,50 +38,54 @@ console.log('Squared numbers:', squares);`,
 					<div className="flex items-center gap-4">
 						<div className="flex items-center justify-center size-12 rounded-xl bg-[#ffffff08] p-2.5">
 							<img
-								src={`/${data.language}.png`}
-								alt={`${data.language} logo`}
+								src={`/${data?.language}.png`}
+								alt={`${data?.language} logo`}
 								className="w-full h-full object-contain"
 							/>
 						</div>
 						<div>
 							<h1 className="text-xl sm:text-2xl font-semibold text-white mb-2">
-								{data.title}
+								{data?.title}
 							</h1>
 							<div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
 								<div className="flex items-center gap-2 text-[#8b8b8d]">
 									<User className="w-4 h-4" />
-									<span>{data.userName}</span>
+									<span>{data?.createBy.name}</span>
 								</div>
 								<div className="flex items-center gap-2 text-[#8b8b8d]">
 									<Clock className="w-4 h-4" />
 									<span>
-										{new Date(data._creationTime).toLocaleDateString()}
+										{new Date(data?.createdAt as string).toLocaleDateString()}
 									</span>
 								</div>
 								<div className="flex items-center gap-2 text-[#8b8b8d]">
 									<MessageSquare className="w-4 h-4" />
-									<span>5 comments</span>
+									<span>{data?.countComment} bình luận</span>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div className="inline-flex items-center px-3 py-1.5 bg-blue-500/10 text-blue-400 rounded-lg text-sm font-medium">
-						{data.language}
+						{data?.language}
 					</div>
 				</div>
 			</div>
 
-			<div className="bg-[#121218] border border-[#ffffff0a] rounded-md  mb-6 backdrop-blur-xl">
-				<div className="px-6 py-2 border-b border-gray-500/50">
-					<h5 className="text-lg font-semibold text-white">Mô tả</h5>
-				</div>
-				<div className="py-2 px-6 ">
-					<pre className="font-[sans-serif]">{data.description}</pre>
-				</div>
-			</div>
+			<CodeSnippetDetail
+				language={data?.language as string}
+				code={data?.code as string}
+			/>
 
-			<CodeSnippetDetail language={data.language} code={data.code} />
-
+			{data?.description && (
+				<div className="bg-[#121218] border border-[#ffffff0a] rounded-md  mb-6 backdrop-blur-xl">
+					<div className="px-6 py-2 border-b border-gray-500/50">
+						<h5 className="text-lg font-semibold text-white">Mô tả</h5>
+					</div>
+					<div className="py-2 px-6 ">
+						<pre className="font-[sans-serif]">{data.description}</pre>
+					</div>
+				</div>
+			)}
 			<Comments />
 		</div>
 	);

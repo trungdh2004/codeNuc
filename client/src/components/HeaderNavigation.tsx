@@ -1,5 +1,8 @@
+import { dataNavigation } from "@/config/navigation.config";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
+import TooltipComponent from "./common/TooltipComponent";
+import ButtonProfile from "./ButtonProfile";
 
 const HeaderNavigation = () => {
 	return (
@@ -30,17 +33,28 @@ const HeaderNavigation = () => {
 						</Link>
 					</div>
 
-					<nav className="flex items-center gap-2 text-sm">
-						<div className="text-">
-							<span>Home</span>
-						</div>
-						<div className="text-">
-							<span>PlayCode</span>
-						</div>
+					<nav className=" items-center gap-4 text-sm hidden md:flex">
+						{dataNavigation.map((nav, index) => (
+							<Link to={nav.link} className="" key={index}>
+								<TooltipComponent
+									label={nav.label}
+									className="border border-gray-500/50"
+								>
+									<div
+										className="relative group flex items-center justify-center size-9 rounded-full text-gray-300 bg-gray-800/50 
+                hover:bg-blue-500/10 border border-gray-800 hover:border-blue-500/50 transition-all duration-300 shadow-lg overflow-hidden"
+									>
+										<span className="text-base font-semibold group-hover:text-blue-500">
+											<nav.icon size={18} />
+										</span>
+									</div>
+								</TooltipComponent>
+							</Link>
+						))}
 					</nav>
 
 					<div className="flex items-center gap-4">
-						<div className="size-8 rounded-full bg-blue-500/50"></div>
+						<ButtonProfile />
 					</div>
 				</div>
 			</div>

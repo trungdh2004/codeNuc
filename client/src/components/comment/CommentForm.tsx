@@ -1,13 +1,36 @@
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { Edit, Eye } from "lucide-react";
+import { Edit, Eye, Loader, Send } from "lucide-react";
 import React, { useState } from "react";
 import CommentContent from "./CommentContent";
 import CommentLanguage from "./CommentLanguage";
+import { toast } from "sonner";
+import { useMutation } from "@tanstack/react-query";
+import { createCommentApi } from "@/services/comment.service";
+import { CommentDto } from "@/types/comment.type";
+import { commentType } from "@/config/comment.config";
 
-const CommentForm = () => {
+const CommentForm = ({
+	parent,
+	handlePageIndex,
+}: {
+	parent: string;
+	handlePageIndex: () => void;
+}) => {
 	const [preview, setPreview] = useState<boolean>(false);
 	const [comment, setComment] = useState("");
+	const { mutate, isPending } = useMutation({
+		mutationKey: ["comment"],
+		mutationFn: (value: CommentDto) => createCommentApi(value),
+		onSuccess(data) {
+			console.log("data", data);
+			setComment("");
+			handlePageIndex();
+		},
+		onError(error) {
+			toast.error(error.message);
+		},
+	});
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
 		if (e.key === "Tab") {
@@ -25,6 +48,20 @@ const CommentForm = () => {
 	const handleLanguage = (language: string) => {
 		const value = "\n```" + language + "\n\n```\n";
 		setComment((prev) => prev + value);
+	};
+
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
+		if (!comment.trim()) {
+			return;
+		}
+
+		mutate({
+			content: comment,
+			type: commentType.SNIPPET,
+			parent,
+		});
 	};
 
 	return (
@@ -61,7 +98,7 @@ const CommentForm = () => {
 				</div>
 			</div>
 
-			<form className="w-full ">
+			<form className="w-full " onSubmit={handleSubmit}>
 				<div className="px-2">
 					{preview ? (
 						<div className="min-h-[120px] p-4 text-[#e1e1e3">
@@ -73,6 +110,7 @@ const CommentForm = () => {
 							onChange={(e) => setComment(e.target.value)}
 							onKeyDown={handleKeyDown}
 							placeholder="Add to the discussion..."
+							required
 							className="w-full bg-transparent border-0 text-[#e1e1e3] placeholder:text-[#808086] outline-none 
             resize-none min-h-[120px] p-1.5 font-mono text-sm focus:ring-1 rounded-sm"
 						/>
@@ -84,14 +122,16 @@ const CommentForm = () => {
 					<motion.button
 						whileHover={{ scale: 1.02 }}
 						whileTap={{ scale: 0.98 }}
-						onClick={() => {
-							// runCode();
-							console.log("comment", JSON.stringify(comment));
-						}}
-						type="button"
+						type="submit"
+						disabled={!comment.trim() || isPending}
 						className="inline-flex items-center gap-2 px-4 py-1.5 rounded-lg overflow-hidden bg-gradient-to-r
-               from-blue-500 to-blue-600 opacity-90 hover:opacity-100 transition-opacity"
+               from-blue-500 to-blue-600 opacity-90 hover:opacity-100 transition-opacity disabled:cursor-not-allowed"
 					>
+						{isPending ? (
+							<Loader size={14} className="animate-spin" />
+						) : (
+							<Send size={14} />
+						)}
 						<span className="text-sm font-medium text-white ">Bình luận</span>
 					</motion.button>
 				</div>

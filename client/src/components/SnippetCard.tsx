@@ -1,9 +1,8 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Snippet } from "@/types";
 import { Clock, User } from "lucide-react";
-const SnippetCard = ({ snippet }: { snippet: Snippet }) => {
+import { SnippetResponse } from "@/types/snippet.type";
+const SnippetCard = ({ snippet }: { snippet: SnippetResponse }) => {
 	return (
 		<motion.div
 			layout
@@ -11,7 +10,7 @@ const SnippetCard = ({ snippet }: { snippet: Snippet }) => {
 			whileHover={{ y: -2 }}
 			transition={{ duration: 0.2 }}
 		>
-			<Link to={`/snippets/${snippet.id}`} className="h-full block">
+			<Link to={`/snippets/${snippet._id}`} className="h-full block">
 				<div
 					className="relative h-full bg-[#1e1e2e]/80 backdrop-blur-sm rounded-lg 
           border border-[#313244]/50 hover:border-[#313244] 
@@ -46,7 +45,7 @@ const SnippetCard = ({ snippet }: { snippet: Snippet }) => {
 									</span>
 									<div className="flex items-center gap-1 text-[10px] text-gray-500">
 										<Clock size={10} />
-										{new Date(snippet._creationTime).toLocaleDateString()}
+										{new Date(snippet.createdAt).toLocaleDateString()}
 									</div>
 								</div>
 							</div>
@@ -92,7 +91,7 @@ const SnippetCard = ({ snippet }: { snippet: Snippet }) => {
 											<User className="size-3" />
 										</div>
 										<span className="truncate max-w-[150px]">
-											{snippet.userName}
+											{snippet.createBy.name}
 										</span>
 									</div>
 								</div>

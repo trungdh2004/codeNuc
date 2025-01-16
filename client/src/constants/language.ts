@@ -1,4 +1,4 @@
-type LanguageConfig = Record<
+export type LanguageConfig = Record<
 	string,
 	{
 		id: string;
@@ -9,6 +9,15 @@ type LanguageConfig = Record<
 		defaultCode: string;
 	}
 >;
+
+export interface IValueLanguage {
+	id: string;
+	label: string;
+	logoPath: string;
+	pistonRuntime: { language: string; version: string };
+	monacoLanguage: string;
+	defaultCode: string;
+}
 
 export const LANGUAGE_CONFIG: LanguageConfig = {
 	javascript: {
