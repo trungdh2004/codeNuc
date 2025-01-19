@@ -5,12 +5,11 @@ import { detailSnippetApi } from "@/services/snippet.service";
 import { SnippetResponse } from "@/types/snippet.type";
 import { useQuery } from "@tanstack/react-query";
 import { Clock, MessageSquare, User } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 const SnippetDetail = () => {
 	const { id } = useParams();
-	const router = useNavigate();
 	const { isLoading, data, error } = useQuery<SnippetResponse>({
 		queryKey: ["detailSnippet", id],
 		queryFn: async () => {
@@ -20,6 +19,7 @@ const SnippetDetail = () => {
 			// });
 			return data;
 		},
+		refetchInterval:Infinity
 	});
 
 	if (isLoading) {
@@ -28,7 +28,7 @@ const SnippetDetail = () => {
 
 	if (error) {
 		toast.error("Có lỗi xảy ra ");
-		return router("/404");
+		return <Navigate to="/404" />;
 	}
 
 	return (

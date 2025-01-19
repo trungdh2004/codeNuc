@@ -1,5 +1,5 @@
 import express from "express";
-import dotenv from "dotenv";
+import "dotenv/config";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import compression from "compression";
@@ -7,7 +7,6 @@ import { appConfig } from "./config/appConfig";
 import { errorhandler } from "./middleware/errorHandler";
 import dbConnect from "./config/db";
 import router from "./routes/index.routes";
-dotenv.config();
 const app = express();
 
 app.use(

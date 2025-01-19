@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import { Blocks } from "lucide-react";
-import React from "react";
 
 const Logo = ({ className }: { className?: string }) => {
 	return (

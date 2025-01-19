@@ -194,18 +194,19 @@ const SnippetsPage = () => {
 							<SnippetCard key={snippet._id} snippet={snippet} />
 						))}
 
-					{data && data.content.length === 0 && (
-						<div
-							className="col-span-full relative w-full h-full bg-[#1e1e2e]/80 backdrop-blur-sm rounded-lg min-h-60 
+					{!data ||
+						(data.content.length === 0 && (
+							<div
+								className="col-span-full relative w-full h-full bg-[#1e1e2e]/80 backdrop-blur-sm rounded-lg min-h-60 
           border border-[#313244]/50 hover:border-[#313244] 
           transition-all duration-300 overflow-hidden flex items-center justify-center flex-col gap-2"
-						>
-							<Logo />
-							<span className="text-sm sm:text-base md:text-lg font-semibold">
-								Không có kết quả nào
-							</span>
-						</div>
-					)}
+							>
+								<Logo />
+								<span className="text-sm sm:text-base md:text-lg font-semibold">
+									Không có kết quả nào
+								</span>
+							</div>
+						))}
 					{isLoading &&
 						Array.from({ length: 4 }).map((_, index) => (
 							<SnippetLoading key={index} />

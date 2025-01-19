@@ -13,6 +13,8 @@ interface IProps {
 	onMount: (editor: MonacoEditor) => void;
 	handleRunCode: () => void;
 	isRunning: boolean;
+	isEditor?: boolean;
+	height?: string;
 }
 const CodePaineSnippetDetail = ({
 	language,
@@ -20,10 +22,12 @@ const CodePaineSnippetDetail = ({
 	onMount,
 	handleRunCode,
 	isRunning,
+	isEditor = false,
+	height = "500px",
 }: IProps) => {
 	return (
-		<div className=" rounded-md overflow-hidden border border-[#ffffff0a] bg-[#121218] md:col-span-3">
-			<div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-[#ffffff0a]">
+		<div className=" rounded-md overflow-hidden border h-full border-[#ffffff0a] bg-[#121218] md:col-span-3 flex flex-col">
+			<div className="flex items-center justify-between px-4 md:px-6 py-2 border-b border-[#ffffff0a]">
 				<div className="flex items-center gap-2 text-[#808086]">
 					<Code className="w-4 h-4" />
 					<span className="text-sm font-medium">Source Code</span>
@@ -51,8 +55,9 @@ const CodePaineSnippetDetail = ({
 				</div>
 				{/* <CopyButton code={snippet.code} /> */}
 			</div>
-			<Editor
-				height="500px"
+			<div className="flex-1">
+				<Editor
+				height={height}
 				language={LANGUAGE_CONFIG[language].monacoLanguage}
 				value={code}
 				theme="vs-dark"
@@ -61,7 +66,7 @@ const CodePaineSnippetDetail = ({
 				options={{
 					minimap: { enabled: false },
 					fontSize: 14,
-					readOnly: true,
+					readOnly: !isEditor,
 					automaticLayout: true,
 					scrollBeyondLastLine: false,
 					padding: { top: 16 },
@@ -70,6 +75,7 @@ const CodePaineSnippetDetail = ({
 					fontLigatures: true,
 				}}
 			/>
+			</div>
 		</div>
 	);
 };

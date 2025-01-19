@@ -2,7 +2,7 @@ import { IValueLanguage, LANGUAGE_CONFIG } from "@/constants/language";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { Plus, Tag } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface IProps {
 	handleSelectedLanguage: (value: IValueLanguage[]) => void;

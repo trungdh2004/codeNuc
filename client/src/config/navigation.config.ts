@@ -1,7 +1,6 @@
 import { GoHomeFill } from "react-icons/go";
-import { MdOutlineHelp, MdOutlinePlayCircleFilled, MdTextSnippet } from "react-icons/md";
+import { MdOutlinePlayCircleFilled, MdTextSnippet } from "react-icons/md";
 import { PiStarFourFill } from "react-icons/pi";
-
 
 export const dataNavigation = [
 	{
@@ -19,11 +18,11 @@ export const dataNavigation = [
 		link: "/editor",
 		icon: MdOutlinePlayCircleFilled,
 	},
-	{
-		label: "Hỏi đáp",
-		link: "/help",
-		icon: MdOutlineHelp,
-	},
+	// {
+	// 	label: "Hỏi đáp",
+	// 	link: "/help",
+	// 	icon: MdOutlineHelp,
+	// },
 	{
 		label: "AI",
 		link: "/ai",

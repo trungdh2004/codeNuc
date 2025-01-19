@@ -1,6 +1,5 @@
-import { animate, useMotionValue } from "framer-motion";
-import React, { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { animate, motion, useMotionValue } from "framer-motion";
+import { useEffect, useRef } from "react";
 
 const data = [
 	{
@@ -50,12 +49,11 @@ const SliderInfinite = () => {
 	const divRef = useRef<HTMLDivElement | null>(null);
 
 	useEffect(() => {
-		let controls;
 		if (divRef.current) {
 			const finalPosition = -divRef.current?.scrollWidth / 2 - 8;
 
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
-			controls = animate(xTransition, [0, finalPosition], {
+			animate(xTransition, [0, finalPosition], {
 				ease: "linear",
 				duration: 25,
 				repeat: Infinity,
@@ -65,7 +63,7 @@ const SliderInfinite = () => {
 		}
 	}, [xTransition]);
 	return (
-		<section className="flex  w-full py-10 overflow-hidden">
+		<section className="flex w-full py-6 md:py-10 overflow-hidden">
 			<motion.div
 				className=" h-20 flex gap-4 relative left-0"
 				ref={divRef}
@@ -73,10 +71,10 @@ const SliderInfinite = () => {
 			>
 				{[...data, ...data].map((item) => (
 					<div
-						className="w-40 px-4 flex items-center justify-center gap-2  rounded-sm"
+						className="w-28 md:w-40 px-4 flex items-center justify-center gap-2  rounded-sm"
 						key={item.label}
 					>
-						<div className="size-10 border p-1.5 border-gray-500/50 rounded-sm">
+						<div className="size-8 md:size-10 p-1.5  rounded-sm">
 							<img
 								src={item.imagePath}
 								alt=""

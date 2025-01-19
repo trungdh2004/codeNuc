@@ -14,13 +14,13 @@ function CommentContent({ content }: { content: string }) {
 				setIsOverflowing(true);
 			}
 		}
-	});
+	}, []);
 
 	return (
 		<div
 			className={cn(
-				"max-w-none text-white text-start overflow-hidden max-h-60 relative transition-all duration-200",
-				openMore && "max-h-max",
+				"max-w-none text-white text-start overflow-hidden max-h-60 relative transition-all duration-500 ease-in-out",
+				openMore && "max-h-max transition-all duration-500 ease-in-out",
 			)}
 			ref={divRef}
 		>

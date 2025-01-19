@@ -78,6 +78,7 @@ const CodeSnippetDetail = ({ language, code }: IProps) => {
 				onMount={onMount}
 				handleRunCode={handleRunCode}
 				isRunning={output.isRunning}
+				isEditor
 			/>
 			<OutputSnippetDetail {...output} />
 		</div>

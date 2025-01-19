@@ -6,8 +6,10 @@ import { useEffect, useRef, useState } from "react";
 
 interface IProps {
 	handleLanguage: (value: string) => void;
+	value?: string;
+	className?: string;
 }
-const CommentLanguage = ({ handleLanguage }: IProps) => {
+const CommentLanguage = ({ handleLanguage, value, className }: IProps) => {
 	const [open, setOpen] = useState(false);
 	const dropdownRef = useRef<HTMLDivElement | null>(null);
 
@@ -34,7 +36,10 @@ const CommentLanguage = ({ handleLanguage }: IProps) => {
 				onClick={() => {
 					setOpen((prev) => !prev);
 				}}
-				className="p-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-200 group relative border border-gray-500/50 cursor-pointer "
+				className={cn(
+					"p-2 bg-white/10 hover:bg-white/20 rounded-lg transition-all duration-200 group relative border border-gray-500/50 cursor-pointer ",
+					className,
+				)}
 			>
 				<CodeIcon className=" size-4 text-gray-400 group-hover:text-gray-300" />
 			</div>
@@ -65,14 +70,15 @@ const CommentLanguage = ({ handleLanguage }: IProps) => {
 										transition={{ delay: index * 0.1 }}
 										className={cn(
 											"relative group w-full flex items-center gap-3 px-2 py-1 hover:bg-[#262637] transition-all duration-200",
+											value === t.id &&
+												"border-blue-500/50 border text-blue-500 rounded-sm cursor-not-allowed",
 										)}
 										onClick={() => {
 											setOpen(false);
-											console.log("t", t);
 											handleLanguage(t.monacoLanguage);
 										}}
 										type="button"
-										// disabled={isLocked}
+										disabled={value === t.id}
 									>
 										{/* bg gradient */}
 										<div
