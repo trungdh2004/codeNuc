@@ -138,4 +138,19 @@ export class GeminiController {
 
     return res.status(HTTPSTATUS.OK).json(data);
   });
+
+  public removeRooms = asyncHandler(async (req: RequestUser, res: Response) => {
+    const user = req.user;
+    const { id } = req.params;
+
+    if (!id) {
+      throw new NotFoundException("không có phòng");
+    }
+
+    await this.geminiService.remove(id, user?.id as string);
+
+    return res.status(HTTPSTATUS.OK).json({
+      message: "Xóa thành công",
+    });
+  });
 }

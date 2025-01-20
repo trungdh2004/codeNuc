@@ -20,3 +20,6 @@ export const pagingGeminiApi = (data: PagingAIDto, query?: string) =>
 	instance.post(`/geminiChat/paging${query ? `?before=${query}` : ""}`, data);
 
 export const listRoomApi = () => instance.get(`/geminiChat/listRoom`);
+
+export const removeRoomApi = (id: string) =>
+	instance.delete(`/geminiChat/remove/` + id);

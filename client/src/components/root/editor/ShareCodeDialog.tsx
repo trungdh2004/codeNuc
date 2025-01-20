@@ -30,7 +30,7 @@ const formSchema = z.object({
 		.min(1, {
 			message: "Chưa nhập tiêu đề",
 		})
-		.max(50),
+		.max(64),
 	description: z.string().optional(),
 });
 

@@ -14,4 +14,5 @@ routerGemini.post(
   geminiController.createMessage
 );
 routerGemini.post("/renderAi/:id", authentication, geminiController.renderAI);
+routerGemini.delete("/remove/:id", authentication, geminiController.removeRooms);
 export default routerGemini;

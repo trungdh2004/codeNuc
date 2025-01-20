@@ -9,3 +9,9 @@ export const pagingSnippetApi = (data: SnippetPagingDto) =>
 
 export const detailSnippetApi = (id: string) =>
 	instance.get("/snippet/detail/" + id);
+
+export const pagingCurrentSnippetApi = (data: SnippetPagingDto) =>
+	instance.post("/snippet/pagingCurrent", data);
+
+export const removeSnippetApi = (id: string) =>
+	instance.delete("/snippet/remove/" + id);

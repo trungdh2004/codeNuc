@@ -7,5 +7,15 @@ const snippetRouter = Router();
 snippetRouter.post("/create", authentication, snippetController.createSnippet);
 snippetRouter.get("/detail/:id", snippetController.getDetail);
 snippetRouter.post("/paging", snippetController.pagingSnippet);
+snippetRouter.delete(
+  "/remove/:id",
+  authentication,
+  snippetController.removeSnippet
+);
+snippetRouter.post(
+  "/pagingCurrent",
+  authentication,
+  snippetController.pagingCurrent
+);
 
 export default snippetRouter;

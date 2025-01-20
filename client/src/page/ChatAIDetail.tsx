@@ -1,9 +1,9 @@
+import ChatDetailSkeleton from "@/components/chatDetail/ChatDetailSkeleton";
 import Conversation from "@/components/chatDetail/Conversation";
 import HeaderAi from "@/components/chatDetail/HeaderAi";
 import CopyButton from "@/components/CopyButton";
 import { RunningCodeSkeleton } from "@/components/root/editor/OutputPanel";
 import CodePaineSnippetDetail from "@/components/snippet/CodePaineSnippetDetail";
-import SnippetDetailSkeleton from "@/components/SnippetDetailSkeleton";
 import { LANGUAGE_CONFIG } from "@/constants/language";
 import { cn } from "@/lib/utils";
 import { findByRoomApi } from "@/services/gemini.service";
@@ -56,7 +56,7 @@ const ChatAIDetail = () => {
 	};
 
 	if (isLoading) {
-		return <SnippetDetailSkeleton />;
+		return <ChatDetailSkeleton />;
 	}
 
 	if (error) {

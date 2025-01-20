@@ -10,4 +10,5 @@ export interface ISnippetDto {
 
 export interface ISnippetPagingDto extends PagingDtoBase {
   language: string[];
+  userId?: string;
 }

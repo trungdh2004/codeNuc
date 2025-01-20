@@ -57,7 +57,9 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 				// 	setSocket(socket);
 				// 	console.log({ socket });
 				// }
-			} catch (error) {
+			} catch (error: unknown) {
+				console.log("error", error);
+
 				setAuthUser(undefined);
 				setIsLoggedIn(false);
 			} finally {

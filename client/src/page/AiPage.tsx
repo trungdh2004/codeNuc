@@ -1,7 +1,9 @@
 import CommentLanguage from "@/components/comment/CommentLanguage";
 import { LANGUAGE_CONFIG } from "@/constants/language";
+import { useAuthContext } from "@/context/AuthProvider";
 import { cn } from "@/lib/utils";
 import { createRoomApi } from "@/services/gemini.service";
+import useModelLogin from "@/store/useModelLogin";
 import { NewRoomDto } from "@/types/gemini.type";
 import { useMutation } from "@tanstack/react-query";
 import { motion } from "framer-motion";
@@ -10,18 +12,19 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 const AiPage = () => {
-	const router = useNavigate()
-	const {mutate,isPending} = useMutation({
-		mutationKey:["newRoom"],
-		mutationFn:(value:NewRoomDto) => createRoomApi(value),
-		onSuccess({data}) {
-			console.log("data",data);
-			router(`/ai/${data._id}`)
+	const { isLoggedIn } = useAuthContext();
+	const { setOpen } = useModelLogin();
+	const router = useNavigate();
+	const { mutate, isPending } = useMutation({
+		mutationKey: ["newRoom"],
+		mutationFn: (value: NewRoomDto) => createRoomApi(value),
+		onSuccess({ data }) {
+			router(`/ai/${data._id}`);
 		},
 		onError() {
-			toast.error("Lỗi tạo thất bại")
+			toast.error("Lỗi tạo thất bại");
 		},
-	})
+	});
 	const [language, setLanguage] = useState("javascript");
 	const [content, setContent] = useState("");
 	const handleLanguage = (value: string) => {
@@ -34,11 +37,14 @@ const AiPage = () => {
 		if (!content) {
 			return;
 		}
+		if (!isLoggedIn) {
+			setOpen();
+			return;
+		}
 		mutate({
-			message:content,
-			language
-		})
-		
+			message: content,
+			language,
+		});
 	};
 
 	return (
@@ -63,6 +69,7 @@ const AiPage = () => {
 								value={content}
 								onChange={(e) => setContent(e.target.value)}
 								autoFocus
+								disabled={isPending}
 							></textarea>
 						</div>
 						<div className="flex items-center justify-between gap-4 pt-2">
@@ -97,10 +104,10 @@ const AiPage = () => {
 									disabled={isPending}
 								>
 									{isPending ? (
-									<Loader size={14} className="animate-spin" />
-								) : (
-									<Send size={14} />
-								)}
+										<Loader size={14} className="animate-spin" />
+									) : (
+										<Send size={14} />
+									)}
 								</motion.button>
 							</div>
 						</div>

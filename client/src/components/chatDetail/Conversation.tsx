@@ -5,7 +5,7 @@ import { createMessageApi, pagingGeminiApi } from "@/services/gemini.service";
 import { ResponseBase } from "@/types";
 import { MessageResponse } from "@/types/gemini.type";
 import { motion } from "framer-motion";
-import { Loader, Send } from "lucide-react";
+import { Bot, Loader, Send } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import { FaArrowDown } from "react-icons/fa";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -38,6 +38,7 @@ const Conversation = ({
 	});
 	const [before, setBefore] = useState<undefined | string>(undefined);
 	const [content, setContent] = useState("");
+	const [loading, setLoading] = useState(true);
 	const [openScroll, setOpenScroll] = useState(false);
 	const refBottom = useRef<HTMLDivElement>(null);
 	const refBoxChat = useRef<HTMLDivElement>(null);
@@ -151,6 +152,7 @@ const Conversation = ({
 	useEffect(() => {
 		(async () => {
 			try {
+				setLoading(true);
 				const { data } = await pagingGeminiApi({
 					roomId: id as string,
 					pageIndex: 1,
@@ -161,6 +163,8 @@ const Conversation = ({
 				setResponse(data);
 			} catch (error: unknown) {
 				console.log("err", error);
+			} finally {
+				setLoading(false);
 			}
 		})();
 	}, [id]);
@@ -201,11 +205,11 @@ const Conversation = ({
 					<div className="" ref={refBottom}></div>
 					<div
 						className={cn(
-							"hidden w-full h-10 rounded-sm text-white",
-							isLoadingAi && "block",
+							"rounded-md text-center w-full h-10  text-gray-400 px4 py-2 animate-pulse bg-[#272727]/50 hidden items-center justify-center",
+							isLoadingAi && "flex",
 						)}
 					>
-						AI gender
+						<Bot />
 					</div>
 					{response.content?.length > 0 &&
 						response.content?.map((item) => (
@@ -220,6 +224,14 @@ const Conversation = ({
 									handleCode={handleSetCode}
 								/>
 							</div>
+						))}
+
+					{loading &&
+						Array.from({ length: 5 }).map((item, index) => (
+							<div
+								className="rounded-md text-center w-full h-14  text-gray-400 px4 py-2 animate-pulse bg-[#272727]/50 flex mb-2 items-center justify-center"
+								key={index}
+							></div>
 						))}
 				</InfiniteScroll>
 			</div>

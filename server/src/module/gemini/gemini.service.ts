@@ -157,4 +157,20 @@ export class GeminiService {
 
     return listRoom;
   }
+
+  async remove(id: string, userId: string) {
+    const room = await this.findByRoomId(id);
+    console.log("room", room);
+
+    if (room.userId.toString() !== userId.toString()) {
+      throw new BadRequestException("Bạn không có quyền");
+    }
+
+    await RoomModel.findByIdAndDelete(id);
+    await MessageModel.deleteMany({
+      roomId: room.id,
+    });
+
+    return true;
+  }
 }

@@ -4,10 +4,10 @@ import ChatAIDetail from "@/page/ChatAIDetail";
 import EditorLang from "@/page/EditorLang";
 import HomePage from "@/page/HomePage";
 import ProfilePage from "@/page/ProfilePage";
-import SettingPage from "@/page/SettingPage";
 import SnippetDetail from "@/page/SnippetDetail";
 import SnippetsPage from "@/page/SnippetsPage";
-import TestPage from "@/page/TestPage";
+import PrivateRouter from "./PrivateRouter";
+import NotFound from "@/page/NotFound";
 
 const RootRouter = [
 	{
@@ -18,14 +18,26 @@ const RootRouter = [
 			{ path: "/snippets", element: <SnippetsPage /> },
 			{ path: "/snippets/:id", element: <SnippetDetail /> },
 			{ path: "/ai", element: <AiPage /> },
-			{ path: "/profile", element: <ProfilePage /> },
-			{ path: "/setting", element: <SettingPage /> },
-			{ path: "/tests", element: <TestPage /> },
+			{
+				path: "/profile",
+				element: (
+					<PrivateRouter>
+						<ProfilePage />{" "}
+					</PrivateRouter>
+				),
+			},
 		],
 	},
 	{ path: "/editor", element: <EditorLang /> },
-	{ path: "/ai/:id", element: <ChatAIDetail /> },
-	{ path: "*", element: <div>Not found</div> },
+	{
+		path: "/ai/:id",
+		element: (
+			<PrivateRouter>
+				<ChatAIDetail />
+			</PrivateRouter>
+		),
+	},
+	{ path: "*", element: <NotFound /> },
 ];
 
 export default RootRouter;

@@ -1,8 +1,19 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Clock, User } from "lucide-react";
+import { Clock, Loader, Trash2, User } from "lucide-react";
 import { SnippetResponse } from "@/types/snippet.type";
-const SnippetCard = ({ snippet }: { snippet: SnippetResponse }) => {
+import { cn } from "@/lib/utils";
+const SnippetCard = ({
+	snippet,
+	isCurrent,
+	isDeleting,
+	handleRemove,
+}: {
+	snippet: SnippetResponse;
+	isCurrent?: boolean;
+	isDeleting?: boolean;
+	handleRemove?: (id: string) => void;
+}) => {
 	return (
 		<motion.div
 			layout
@@ -10,6 +21,14 @@ const SnippetCard = ({ snippet }: { snippet: SnippetResponse }) => {
 			whileHover={{ y: -2 }}
 			transition={{ duration: 0.2 }}
 		>
+			<div
+				className={cn(
+					"absolute hidden inset-0 z-10 bg-black/30  items-center justify-center ",
+					isDeleting && "flex",
+				)}
+			>
+				<Loader className="text-gray-500 animate-spin" />
+			</div>
 			<Link to={`/snippets/${snippet._id}`} className="h-full block">
 				<div
 					className="relative h-full bg-[#1e1e2e]/80 backdrop-blur-sm rounded-lg 
@@ -53,20 +72,21 @@ const SnippetCard = ({ snippet }: { snippet: SnippetResponse }) => {
 								className="absolute top-5 right-5 z-10 flex gap-4 items-center"
 								onClick={(e) => e.preventDefault()}
 							>
-								{/* <StarButton snippetId={snippet._id} /> */}
-
-								{/* {user?.id === snippet.userId && (
+								{isCurrent && (
 									<div className="z-10" onClick={(e) => e.preventDefault()}>
 										<button
-											onClick={handleDelete}
+											onClick={() => {
+												if (handleRemove) {
+													handleRemove(snippet._id);
+												}
+											}}
 											disabled={isDeleting}
-											className={`group flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all duration-200
-                                  ${
-																		isDeleting
-																			? "bg-red-500/20 text-red-400 cursor-not-allowed"
-																			: "bg-gray-500/10 text-gray-400 hover:bg-red-500/10 hover:text-red-400"
-																	}
-                                `}
+											className={cn(
+												"group flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all duration-200",
+												isDeleting
+													? "bg-red-500/20 text-red-400 cursor-not-allowed"
+													: "bg-gray-500/10 text-gray-400 hover:bg-red-500/10 hover:text-red-400",
+											)}
 										>
 											{isDeleting ? (
 												<div className="size-3.5 border-2 border-red-400/30 border-t-red-400 rounded-full animate-spin" />
@@ -75,7 +95,7 @@ const SnippetCard = ({ snippet }: { snippet: SnippetResponse }) => {
 											)}
 										</button>
 									</div>
-								)} */}
+								)}
 							</div>
 						</div>
 

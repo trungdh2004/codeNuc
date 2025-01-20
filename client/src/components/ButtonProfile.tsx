@@ -82,9 +82,13 @@ const ButtonProfile = () => {
 						</div>
 
 						<DropdownMenuSeparator className="bg-[#313244]" />
-						<DropdownMenuItem>Profile</DropdownMenuItem>
-						<DropdownMenuItem>Billing</DropdownMenuItem>
-						<DropdownMenuItem>Team</DropdownMenuItem>
+						<Link to={"/profile"} className="cursor-pointer">
+							<DropdownMenuItem className="cursor-pointer">
+								Hồ sơ
+							</DropdownMenuItem>
+						</Link>
+						<DropdownMenuSeparator className="bg-[#313244]" />
+
 						<DropdownMenuItem
 							className="bg-rose-100/10 text-rose-500 hover:bg-rose-100/30 cursor-pointer focus:bg-rose-100/30 focus:text-rose-500"
 							onClick={handleLogout}

@@ -1,5 +1,6 @@
 import { ISnippetDto, ISnippetPagingDto } from "../../interface/snippet.dto";
 import SnippetModel from "../../models/Snippet.model";
+import { UserDocument } from "../../models/User.model";
 import { BadRequestException, NotFoundException } from "../../utils/catchError";
 import { removeVietnameseTones } from "../../utils/func";
 import { formatResponse } from "../../utils/response";
@@ -37,6 +38,11 @@ export class SnippetService {
     const limit = data.pageSize || 10;
     const skip = (data.pageIndex - 1) * limit || 0;
     const keywordNoTone = removeVietnameseTones(data.keyword);
+    const queryCreateBy = data.userId
+      ? {
+          createBy: data.userId,
+        }
+      : {};
     const queryKey = data.keyword
       ? {
           $or: [
@@ -66,6 +72,7 @@ export class SnippetService {
     const listData = await SnippetModel.find({
       ...queryKey,
       ...queryLanguage,
+      ...queryCreateBy,
     })
       .sort({ createdAt: -1 })
       .skip(skip)
@@ -78,6 +85,7 @@ export class SnippetService {
     const countData = await SnippetModel.countDocuments({
       ...queryKey,
       ...queryLanguage,
+      ...queryCreateBy,
     });
 
     return formatResponse({
@@ -86,5 +94,19 @@ export class SnippetService {
       data: listData,
       count: countData,
     });
+  }
+
+  async remove(id: string, userId: string) {
+    const snippet = await this.findById(id);
+
+    if (
+      (snippet.createBy as UserDocument)._id?.toString() !== userId.toString()
+    ) {
+      throw new BadRequestException("Bạn không có quyền xóa");
+    }
+
+    await SnippetModel.findByIdAndDelete(id);
+
+    return true;
   }
 }
