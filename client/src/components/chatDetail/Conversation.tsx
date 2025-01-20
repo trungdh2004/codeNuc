@@ -227,7 +227,7 @@ const Conversation = ({
 						))}
 
 					{loading &&
-						Array.from({ length: 5 }).map((item, index) => (
+						Array.from({ length: 5 }).map((_, index) => (
 							<div
 								className="rounded-md text-center w-full h-14  text-gray-400 px4 py-2 animate-pulse bg-[#272727]/50 flex mb-2 items-center justify-center"
 								key={index}

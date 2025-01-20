@@ -1,5 +1,3 @@
-import React from "react";
-
 const ChatDetailSkeleton = () => {
 	return (
 		<div className="w-full min-h-screen h-full flex-col">
