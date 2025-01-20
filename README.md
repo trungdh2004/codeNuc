@@ -4,7 +4,7 @@ Chào mừng đến với trang web **NucCode**! Đây là một nền tảng h�
 
 ## 📚 Nội dung
 - [Tính năng](#-tính-năng)
-- [Công nghệ sử dụng](#-công-nghệ-sử-dụng)
+- [Công nghệ sử dụng](#%EF%B8%8F-công-nghệ-sử-dụng)
 - [Cài đặt](#-cài-đặt)
 - [Layout](#layout)
 ## 🌟 Tính năng
