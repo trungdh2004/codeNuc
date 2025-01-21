@@ -13,6 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import { BookOpen, Grid, Layers, Search, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 
 const SnippetsPage = () => {
 	const [searchObject, setSearchObject] = useState<SnippetPagingDto>({
@@ -53,6 +54,23 @@ const SnippetsPage = () => {
 
 	return (
 		<div className="w-full h-full max-w-7xl mx-auto py-12 px-4 lg:px-4">
+			<Helmet>
+				<title>CodeNuc khám phá mã nguồn</title>
+				<meta
+					name="description"
+					content="Khám phá các mã nguồn được người dùng đăng tải tại CodeNuc"
+				/>
+				<meta
+					name="keywords"
+					content="CodeNuc,Runtimes,language,javascript,python,go,java,ai,snippets,programming,search"
+				/>
+				<meta
+					property="og:image"
+					content="https://res.cloudinary.com/dundmo7q8/image/upload/v1737365825/codeNuc/snippets_uiw7n1.png"
+				/>
+				<meta property="og:url" content="https://codenuc.vercel.app/snippets" />
+				<meta property="og:type" content="website" />
+			</Helmet>
 			<div className="text-center max-w-3xl mx-auto mb-16">
 				<motion.div
 					initial={{ opacity: 0, y: 20 }}

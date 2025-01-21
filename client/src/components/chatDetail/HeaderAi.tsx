@@ -99,9 +99,11 @@ const HeaderAi = () => {
 							</Link>
 						</div>
 					</SheetHeader>
-					<Button variant={"secondary"} className="my-4 w-full">
-						<BotMessageSquare size={20} /> Đoạn chat mới
-					</Button>
+					<Link to={"/ai"}>
+						<Button variant={"secondary"} className="my-4 w-full">
+							<BotMessageSquare size={20} /> Đoạn chat mới
+						</Button>
+					</Link>
 					<div className="flex-1 w-full overflow-y-auto scroll-style">
 						<div>
 							<span className="text-gray-500 text-sm">Đoạn chat</span>

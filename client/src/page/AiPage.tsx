@@ -9,6 +9,7 @@ import { useMutation } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Loader, Send } from "lucide-react";
 import React, { useState } from "react";
+import { Helmet } from "react-helmet";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 const AiPage = () => {
@@ -49,6 +50,23 @@ const AiPage = () => {
 
 	return (
 		<div className="w-full">
+			<Helmet>
+				<title>AI thông minh - CodeNuc</title>
+				<meta
+					property="description"
+					content="Với AI Gemini giúp hỗ trợ tạo các mã nguồn theo yêu cầu người dùng nhiều ngôn ngữ tự chọn"
+				/>
+				<meta
+					property="keywords"
+					content="CodeNuc,mã nguồn, chạy trực tuyến, runtimes,javascript,"
+				/>
+				<meta
+					property="og:image"
+					content="https://res.cloudinary.com/dundmo7q8/image/upload/v1737365822/codeNuc/code_qfzeet.png"
+				/>
+				<meta property="og:url" content="https://codenuc.vercel.app/editor" />
+				<meta property="og:type" content="website" />
+			</Helmet>
 			<div className="flex flex-col items-center mt-28 justify-center gap-2 p-10">
 				<h2
 					className="font-bold text-4xl bg-gradient-to-r

@@ -126,6 +126,21 @@ const ChatAIDetail = () => {
 
 	return (
 		<div className="w-full min-h-screen h-full flex-col">
+			<title>AI thông minh - CodeNuc</title>
+			<meta
+				property="description"
+				content="Với AI Gemini giúp hỗ trợ tạo các mã nguồn theo yêu cầu người dùng nhiều ngôn ngữ tự chọn"
+			/>
+			<meta
+				property="keywords"
+				content="CodeNuc,mã nguồn, chạy trực tuyến, runtimes,javascript,"
+			/>
+			<meta
+				property="og:image"
+				content="https://res.cloudinary.com/dundmo7q8/image/upload/v1737365822/codeNuc/code_qfzeet.png"
+			/>
+			<meta property="og:url" content="https://codenuc.vercel.app/editor" />
+			<meta property="og:type" content="website" />
 			<HeaderAi />
 
 			<div className="px-6 w-full mx-auto flex-1 h-full py-4">
@@ -148,7 +163,7 @@ const ChatAIDetail = () => {
 						<div className="w-full h-3/5">
 							<CodePaineSnippetDetail
 								language={language}
-								code={""}
+								code={editorRef.current?.getValue() || ""}
 								onMount={onMount}
 								handleRunCode={handleRunCode}
 								isRunning={output.isRunning}

@@ -5,6 +5,7 @@ import { detailSnippetApi } from "@/services/snippet.service";
 import { SnippetResponse } from "@/types/snippet.type";
 import { useQuery } from "@tanstack/react-query";
 import { Clock, MessageSquare, User } from "lucide-react";
+import { Helmet } from "react-helmet";
 import { Navigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -19,7 +20,7 @@ const SnippetDetail = () => {
 			// });
 			return data;
 		},
-		refetchInterval:Infinity
+		refetchInterval: Infinity,
 	});
 
 	if (isLoading) {
@@ -33,6 +34,13 @@ const SnippetDetail = () => {
 
 	return (
 		<div className="max-w-7xl mx-auto px-4 lg:px-0 sm:py-8 lg:py-12">
+			<Helmet>
+				<title>{data?.title} - CodeNuc</title>
+				<meta
+					name="description"
+					content={`${data?.title} - ${data?.description} - CodeNuc`}
+				/>
+			</Helmet>
 			<div className="bg-[#121218] border border-[#ffffff0a] rounded-2xl p-6 sm:p-8 mb-6 backdrop-blur-xl">
 				<div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
 					<div className="flex items-center gap-4">
