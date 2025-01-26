@@ -1,5 +1,21 @@
-# CodeNuc Website hỗ trợ chạy trực tuyến mã nguồn
+<div align="center">
+  <br />
+    <a href="https://codenuc.vercel.app" target="_blank">
+      <img src="https://res.cloudinary.com/dundmo7q8/image/upload/v1737365825/codeNuc/%E1%BA%A2nh_ch%E1%BB%A5p_m%C3%A0n_h%C3%ACnh_2025-01-20_163331_jtzot0.png" alt="ProteinBind Project Banner">
+    </a>
+  
+  <br />
 
+  <div>
+    <img src="https://img.shields.io/badge/-TypeScript-black?style=for-the-badge&logoColor=white&logo=typescript&color=3178C6" alt="typescript" />
+    <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="nextdotjs" />
+    <img src="https://img.shields.io/badge/-Tailwind_CSS-black?style=for-the-badge&logoColor=white&logo=tailwindcss&color=06B6D4" alt="tailwindcss" />
+    <img src="https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB" alt="express" />
+    <img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white" alt="mongodb" />
+  </div>
+</div>
+
+# CodeNuc Website hỗ trợ chạy trực tuyến mã nguồn
 Chào mừng đến với trang web **NucCode**! Đây là một nền tảng hỗ trợ chạy mã nguồn trực tuyến cho nhiều ngôn ngữ lập trình khác nhau, giúp bạn có thể thử nghiệm, kiểm tra và chạy mã của mình ngay trên trình duyệt mà không cần cài đặt phần mềm hay môi trường phức tạp.
 
 ## 📚 Nội dung
