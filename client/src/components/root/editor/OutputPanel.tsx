@@ -13,6 +13,7 @@ import { useState } from "react";
 import ShareCodeDialog from "./ShareCodeDialog";
 import { useAuthContext } from "@/context/AuthProvider";
 import useModelLogin from "@/store/useModelLogin";
+import { useTranslation } from "react-i18next";
 
 const OutputPanel = () => {
 	const { isLoggedIn } = useAuthContext();
@@ -21,7 +22,7 @@ const OutputPanel = () => {
 	const [isCopied, setIsCopied] = useState(false);
 	const [isShare, setShare] = useState(false);
 	// const [isQuestion, setQuestion] = useState(false);
-
+	const { t } = useTranslation();
 	const hasContent = error || output;
 
 	const handleCopy = async () => {
@@ -39,12 +40,12 @@ const OutputPanel = () => {
 						<div className="flex items-center justify-center w-6 h-6 rounded-lg bg-[#1e1e2e] ring-1 ring-gray-800/50">
 							<Terminal className="w-4 h-4 text-blue-400" />
 						</div>
-						<span className="text-sm font-medium text-gray-300">Output</span>
+						<span className="text-sm font-medium text-gray-300">{t("output")}</span>
 					</div>
 
 					{hasContent && (
 						<div className="flex items-center gap-2">
-							<TooltipComponent label="Sao chép kết quả">
+							<TooltipComponent label={t("copy")}>
 								<button
 									onClick={handleCopy}
 									className="flex items-center gap-1.5 p-2 text-xs text-gray-400 hover:text-gray-300 bg-[#1e1e2e] 
@@ -61,7 +62,7 @@ const OutputPanel = () => {
 									)}
 								</button>
 							</TooltipComponent>
-							<TooltipComponent label="Chia sẻ code">
+							<TooltipComponent label={t("share")}>
 								<button
 									onClick={() => {
 										if (!isLoggedIn) {
@@ -77,7 +78,7 @@ const OutputPanel = () => {
 									<ForwardIcon className="w-3.5 h-3.5" />
 								</button>
 							</TooltipComponent>
-							<TooltipComponent label="Tạo câu hỏi">
+							<TooltipComponent label={t("question")}>
 								<button
 									onClick={handleCopy}
 									className="flex items-center gap-1.5 p-2 text-xs text-white hover:text-gray-300 bg-gradient-to-r
@@ -103,7 +104,7 @@ const OutputPanel = () => {
 							<div className="flex items-start gap-3 text-red-400">
 								<AlertTriangle className="w-5 h-5 flex-shrink-0 mt-1" />
 								<div className="space-y-1">
-									<div className="font-medium">Thất bại</div>
+									<div className="font-medium">{t("failure")}</div>
 									<pre className="whitespace-pre-wrap text-red-400/80">
 										{error}
 									</pre>
@@ -113,7 +114,7 @@ const OutputPanel = () => {
 							<div className="space-y-2">
 								<div className="flex items-center gap-2 text-emerald-400 mb-3">
 									<CheckCircle className="w-5 h-5" />
-									<span className="font-medium">Thành công</span>
+									<span className="font-medium">{t("success")}</span>
 								</div>
 								<pre className="whitespace-pre-wrap text-gray-300">
 									{output}
@@ -124,9 +125,7 @@ const OutputPanel = () => {
 								<div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gray-800/50 ring-1 ring-gray-700/50 mb-4">
 									<Clock className="w-6 h-6" />
 								</div>
-								<p className="text-center">
-									Chạy mã của bạn để xem kết quả ở đây...
-								</p>
+								<p className="text-center">{t("outPanel.notRun")}</p>
 							</div>
 						)}
 					</div>

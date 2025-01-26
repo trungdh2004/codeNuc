@@ -35,7 +35,7 @@ const SnippetCard = ({
           border border-[#313244]/50 hover:border-[#313244] 
           transition-all duration-300 overflow-hidden"
 				>
-					<div className="p-4">
+					<div className="p-2 sm:p-4">
 						{/* Header */}
 						<div className="flex items-start justify-between mb-2">
 							<div className="flex items-center gap-2">

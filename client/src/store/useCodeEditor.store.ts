@@ -89,7 +89,6 @@ export const useCodeEditorStore = create<CodeEditorState>((set, get) => {
 					},
 				);
 
-				console.log("data", data);
 
 				if (data.message) {
 					set({
@@ -115,10 +114,10 @@ export const useCodeEditorStore = create<CodeEditorState>((set, get) => {
 
 				set({
 					error: null,
-					output: data.run.output,
+					output: data.run.output || "\n",
 					executionResult: {
 						code,
-						output: data.run.output,
+						output: data.run.output || "\n",
 						error: null,
 					},
 				});

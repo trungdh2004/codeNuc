@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { CircleOff, Github, Laptop, Moon, Palette, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 const THEME_ICONS: Record<string, React.ReactNode> = {
 	"vs-dark": <Moon size={14} />,
@@ -17,7 +18,7 @@ const ThemeSelector = () => {
 	const { theme, setTheme } = useCodeEditorStore();
 	const dropdownRef = useRef<HTMLDivElement | null>(null);
 	const currentTheme = THEMES.find((t) => t.id === theme);
-
+	const { t } = useTranslation();
 	useEffect(() => {
 		const handleClickOutsize = (event: MouseEvent) => {
 			if (
@@ -38,16 +39,13 @@ const ThemeSelector = () => {
 				whileHover={{ scale: 1.02 }}
 				whileTap={{ scale: 0.98 }}
 				onClick={() => setOpen((prev) => !prev)}
-				className="relative w-40 group flex items-center gap-2 px-2.5 py-1.5 bg-[#1e1e2e]/80 hover:bg-[#262637] rounded-lg transition-lg transition-all duration-200 border border-gray-800/50 hover:border-gray-700 text-sm"
+				className="relative w-32 md:w-40 group flex items-center gap-2 px-2.5 py-1.5 bg-[#1e1e2e]/80 hover:bg-[#262637] rounded-lg transition-lg transition-all duration-200 border border-gray-800/50 hover:border-gray-700 text-sm"
 			>
 				<div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"></div>
 
-				<Palette
-					size={16}
-					className="text-gray-400 group-hover:text-gray-300 transition-colors"
-				/>
+				<Palette className="text-gray-400 hidden md:block size-4 group-hover:text-gray-300 transition-colors" />
 
-				<span className="text-gray-300 min-w-20 text-left group-hover:text-white transition-colors text-xs">
+				<span className="text-gray-300 flex-1 md:min-w-20 text-left group-hover:text-white transition-colors text-xs">
 					{currentTheme?.label}
 				</span>
 
@@ -66,11 +64,11 @@ const ThemeSelector = () => {
 						animate={{ opacity: 1, y: 0, scale: 1 }}
 						exit={{ opacity: 0, y: 8, scale: 0.96 }}
 						transition={{ duration: 0.2 }}
-						className="absolute top-full left-0 w-full mt-2 min-w-[240px] bg-[#1e1e2e]/95 backdrop-blur-xl rounded-md border border-[#313244] shadow-2xl py-2 z-50"
+						className="absolute top-full left-0 w-full mt-2 min-w-[200px] sm:min-w-[240px] bg-[#1e1e2e]/95 backdrop-blur-xl rounded-md border border-[#313244] shadow-2xl py-2 z-50"
 					>
 						<div className="px-2 pb-1 mb-1 border-b border-gray-800/50">
 							<p className="text-xs font-medium text-gray-400 px-2">
-								Chọn theme
+								{t("selectedTheme")}
 							</p>
 						</div>
 

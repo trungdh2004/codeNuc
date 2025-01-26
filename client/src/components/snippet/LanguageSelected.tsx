@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { Plus, Tag } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
 	handleSelectedLanguage: (value: IValueLanguage[]) => void;
@@ -10,6 +11,7 @@ interface IProps {
 }
 
 const LanguageSelected = ({ handleSelectedLanguage, listSelected }: IProps) => {
+	const { t } = useTranslation();
 	const [isOpen, setOpen] = useState(false);
 	const dropdownRef = useRef<HTMLDivElement | null>(null);
 	const [selected, setSelected] = useState<IValueLanguage[]>([]);
@@ -37,17 +39,19 @@ const LanguageSelected = ({ handleSelectedLanguage, listSelected }: IProps) => {
 	return (
 		<div className="relative" ref={dropdownRef}>
 			<div
-				className="flex items-center gap-2 px-4 py-2 bg-[#1e1e2e] rounded-lg ring-1 ring-gray-800 cursor-pointer"
+				className="flex items-center gap-2 py-1.5 px-3 sm:px-4 sm:py-2 bg-[#1e1e2e] rounded-lg ring-1 ring-gray-800 cursor-pointer"
 				onClick={() => {
 					setOpen(!isOpen);
 				}}
 			>
 				<Tag className="w-4 h-4 text-gray-400" />
-				<span className="text-sm text-gray-400">Ngôn ngữ:</span>
+				<span className="text-xs sm:text-sm text-gray-400">
+					{t("language")}:
+				</span>
 			</div>
 			<AnimatePresence>
 				{isOpen && (
-					<div className="fixed inset-0 w-full h-screen  z-[100] flex items-center justify-center px-2">
+					<div className="fixed inset-0 w-full h-screen z-[100] flex items-center justify-center px-2">
 						<div
 							className="absolute inset-0 bg-black/80 cursor-pointer z-0"
 							onClick={() => {
@@ -62,11 +66,11 @@ const LanguageSelected = ({ handleSelectedLanguage, listSelected }: IProps) => {
 								duration: 0.2,
 							}}
 							exit={{ scale: 0, opacity: 0 }}
-							className="absolute w-full mt-2 max-w-md bg-[#1e1e2e]/95 backdrop-blur-xl rounded-md border border-[#313244] shadow-2xl py-2 z-50"
+							className="absolute w-[calc(100%-16px)]  md:w-full mt-2 md:max-w-md bg-[#1e1e2e]/95 backdrop-blur-xl rounded-md border border-[#313244] shadow-2xl py-2 z-50"
 						>
 							<div className="px-2 pb-1 mb-1 border-b border-gray-800/50">
 								<p className="text-base font-medium text-gray-400 px-2">
-									Chọn ngôn ngữ
+									{t("selectedLang")}
 								</p>
 							</div>
 
@@ -101,7 +105,7 @@ const LanguageSelected = ({ handleSelectedLanguage, listSelected }: IProps) => {
 											<div
 												className={cn(
 													`
-                flex items-center justify-center size-6 rounded-full group-hover:scale-110 transition-all duration-200`,
+                flex items-center justify-center size-4 md:size-6 rounded-full group-hover:scale-110 transition-all duration-200`,
 													isSelect
 														? "bg-blue-500/10 text-blue-400"
 														: "bg-gray-800/50 text-gray-400",
@@ -142,7 +146,7 @@ const LanguageSelected = ({ handleSelectedLanguage, listSelected }: IProps) => {
 										setOpen(false);
 									}}
 								>
-									Hủy
+									{t("cancel")}
 								</button>
 								<button
 									className="px-2 py-1 rounded-sm bg-blue-600 text-white text-sm hover:bg-blue-600/80"
@@ -151,7 +155,7 @@ const LanguageSelected = ({ handleSelectedLanguage, listSelected }: IProps) => {
 										setOpen(false);
 									}}
 								>
-									Xác nhận
+									{t("confirm")}
 								</button>
 							</div>
 						</motion.div>

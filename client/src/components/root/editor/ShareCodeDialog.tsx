@@ -20,19 +20,9 @@ import { useCodeEditorStore } from "@/store/useCodeEditor.store";
 import useModelLoading from "@/store/useModelLoading.store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import { z } from "zod";
-
-const formSchema = z.object({
-	title: z
-		.string()
-		.trim()
-		.min(1, {
-			message: "Chưa nhập tiêu đề",
-		})
-		.max(64),
-	description: z.string().optional(),
-});
 
 interface IProps {
 	open: boolean;
@@ -40,6 +30,19 @@ interface IProps {
 }
 
 const ShareCodeDialog = ({ open, handleClose }: IProps) => {
+	const { t } = useTranslation();
+	const formSchema = z.object({
+		title: z
+			.string()
+			.trim()
+			.min(1, {
+				message: t("zod.required"),
+			})
+			.max(64, {
+				message: `${t("zod.required")} 64`,
+			}),
+		description: z.string().optional(),
+	});
 	const { language, getCode } = useCodeEditorStore();
 	const { setClose, setOpen } = useModelLoading();
 	const form = useForm<z.infer<typeof formSchema>>({
@@ -77,10 +80,10 @@ const ShareCodeDialog = ({ open, handleClose }: IProps) => {
 	}
 	return (
 		<Dialog open={open} onOpenChange={handleClose}>
-			<DialogContent className="bg-[#1e1e2e] rounded-lg p-4 w-full max-w-md border-none text-white">
+			<DialogContent className="bg-[#1e1e2e] rounded-lg max-w-[90%] p-4 w-full md:max-w-md border-none text-white">
 				<DialogHeader>
 					<DialogTitle className="text-base font-semibold text-white">
-						Chia sẻ mã code
+						{t("shareCode")}
 					</DialogTitle>
 				</DialogHeader>
 
@@ -93,7 +96,7 @@ const ShareCodeDialog = ({ open, handleClose }: IProps) => {
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel className="text-sm text-white">
-											Tiêu đề
+											{t("title")}
 										</FormLabel>
 										<FormControl>
 											<Input
@@ -111,7 +114,9 @@ const ShareCodeDialog = ({ open, handleClose }: IProps) => {
 								name="description"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel className="text-sm text-white">Mô tả</FormLabel>
+										<FormLabel className="text-sm text-white">
+											{t("description")}
+										</FormLabel>
 										<FormControl>
 											<Textarea
 												placeholder="CodeNuc...."
@@ -133,7 +138,7 @@ const ShareCodeDialog = ({ open, handleClose }: IProps) => {
 									variant={"ghost"}
 									className="hover:bg-gray-500/10 text-gray-500 hover:text-gray-500"
 								>
-									Hủy
+									{t("cancel")}
 								</Button>
 								<Button
 									type="submit"
@@ -142,7 +147,7 @@ const ShareCodeDialog = ({ open, handleClose }: IProps) => {
                from-blue-500 to-blue-600 
             rounded-lg ring-1 ring-blue-800/50 hover:ring-gray-700/50 transition-all text-white"
 								>
-									Đăng tải
+									{t("posted")}
 								</Button>
 							</div>
 						</form>

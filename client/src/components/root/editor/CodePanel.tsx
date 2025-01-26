@@ -6,6 +6,7 @@ import { Editor } from "@monaco-editor/react";
 import { motion } from "framer-motion";
 import { Copy, Loader2, PlayIcon, RotateCcwIcon, TypeIcon } from "lucide-react";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 const CodePanel = () => {
@@ -20,7 +21,7 @@ const CodePanel = () => {
 		runCode,
 		isRunning,
 	} = useCodeEditorStore();
-
+	const { t } = useTranslation();
 	useEffect(() => {
 		const savedCode = localStorage.getItem(`editor-code-${language}`);
 		const newCode = savedCode || LANGUAGE_CONFIG[language].defaultCode;
@@ -62,8 +63,8 @@ const CodePanel = () => {
 
 	return (
 		<div className="relative h-full">
-			<div className="relative bg-[#12121a]/90 backdrop-blur rounded-md border border-white/[0.05] p-4 h-full flex flex-col">
-				<div className="w-full flex items-center justify-between mb-4">
+			<div className="relative bg-[#12121a]/90 backdrop-blur rounded-md border border-white/[0.05] p-2 md:p-4 h-full flex flex-col min-h-[500px]">
+				<div className="w-full flex flex-col gap-2 md:flex-row items-start md:items-center justify-between mb-4">
 					<div className="flex items-center gap-2">
 						<div className="flex items-center justify-center size-6  bg-[#1e1e2e] rounded-sm overflow-hidden">
 							<img
@@ -92,14 +93,14 @@ const CodePanel = () => {
 									onChange={(e) => {
 										handleFontSizeChange(parseInt(e.target.value));
 									}}
-									className="w-20 h-1 bg-gray-600 rounded-lg cursor-pointer"
+									className="w-16 md:w-20 h-1 bg-gray-600 rounded-lg cursor-pointer"
 								/>
 								<span className="text-sm font-medium text-gray-400 min-w-[2rem] text-center">
 									{fontSize}
 								</span>
 							</div>
 						</div>
-						<TooltipComponent label="Reset">
+						<TooltipComponent label={t("reset")}>
 							<motion.button
 								whileHover={{ scale: 1.1 }}
 								whileTap={{ scale: 0.95 }}
@@ -111,7 +112,7 @@ const CodePanel = () => {
 							</motion.button>
 						</TooltipComponent>
 
-						<TooltipComponent label="Copy mã code">
+						<TooltipComponent label={t("copy")}>
 							<motion.button
 								whileHover={{ scale: 1.1 }}
 								whileTap={{ scale: 0.95 }}
@@ -131,7 +132,7 @@ const CodePanel = () => {
 								runCode();
 							}}
 							disabled={isRunning}
-							className="inline-flex items-center gap-2 px-4 py-1.5 rounded-lg overflow-hidden bg-gradient-to-r
+							className="inline-flex items-center gap-2 px-4  py-2 sm:py-1.5 rounded-lg overflow-hidden bg-gradient-to-r
                from-blue-500 to-blue-600 opacity-90 hover:opacity-100 transition-opacity"
 						>
 							{isRunning ? (
@@ -139,7 +140,9 @@ const CodePanel = () => {
 							) : (
 								<PlayIcon className="size-[14px] text-white" />
 							)}
-							<span className="text-xs font-medium text-white ">Chạy</span>
+							<span className="text-xs hidden sm:block font-medium text-white ">
+								{t("run")}
+							</span>
 						</motion.button>
 					</div>
 				</div>

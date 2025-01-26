@@ -97,7 +97,6 @@ export class GeminiService {
     await RoomModel.findByIdAndUpdate(data.roomId, {
       isFirst: false,
       code: newMessageAI.code,
-      message: newMessageAI.message,
       isAi: true,
       language: data.language,
     });

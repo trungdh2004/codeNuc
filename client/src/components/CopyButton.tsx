@@ -1,9 +1,11 @@
 import { Check, Copy } from "lucide-react";
 import { useState } from "react";
 import TooltipComponent from "./common/TooltipComponent";
+import { useTranslation } from "react-i18next";
 
 function CopyButton({ code }: { code: string }) {
 	const [copied, setCopied] = useState(false);
+	const { t } = useTranslation();
 
 	const copyToClipboard = async () => {
 		await navigator.clipboard.writeText(code);
@@ -13,7 +15,7 @@ function CopyButton({ code }: { code: string }) {
 
 	return (
 		<>
-			<TooltipComponent label="Copy mã code">
+			<TooltipComponent label={t("copy")}>
 				<div
 					onClick={copyToClipboard}
 					className="p-2 hover:bg-white/10 rounded-lg transition-all duration-200 group relative"

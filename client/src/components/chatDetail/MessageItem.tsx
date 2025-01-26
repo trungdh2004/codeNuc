@@ -31,7 +31,7 @@ const MessageItem = ({
 
 				{isAi && code && (
 					<div className="flex justify-end">
-						<TooltipComponent label="Xem mã code">
+						<TooltipComponent label={"Run"}>
 							<button
 								className="px-4 py-1 border border-gray-500/50 rounded-md flex items-center gap-2 hover:bg-gray-400/30"
 								onClick={() => {

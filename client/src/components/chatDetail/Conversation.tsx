@@ -12,6 +12,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { v4 as uuidV4 } from "uuid";
 import CommentLanguage from "../comment/CommentLanguage";
 import MessageItem from "./MessageItem";
+import { useTranslation } from "react-i18next";
 interface IProps {
 	handleSetCode: (code: string, language: string) => void;
 	id: string;
@@ -25,6 +26,7 @@ const Conversation = ({
 	handleLoading,
 	isLoadingAi,
 }: IProps) => {
+	const { t } = useTranslation();
 	const { authUser } = useAuthContext();
 	const [language, setLanguage] = useState("javascript");
 	const [pageIndex, setPageIndex] = useState(1);
@@ -250,7 +252,7 @@ const Conversation = ({
 					<div>
 						<textarea
 							className="w-full min-h-16 bg-transparent  outline-none resize-none scroll-style"
-							placeholder="Bạn muốn hỗ trợ gì...."
+							placeholder={t("ai.placeholder")}
 							autoFocus
 							value={content}
 							onChange={(e) => setContent(e.target.value)}

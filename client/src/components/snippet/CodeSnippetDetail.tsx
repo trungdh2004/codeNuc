@@ -70,6 +70,15 @@ const CodeSnippetDetail = ({ language, code }: IProps) => {
 		editorRef.current = editor;
 	};
 
+	const copyToClipboard = () => {
+		if (!editorRef.current) {
+			toast.warning("Hệ thống đang lỗi xin vui lòng load lại web");
+			return;
+		}
+		navigator.clipboard.writeText(editorRef.current.getValue());
+		toast.success("Copied clipboard");
+	};
+
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
 			<CodePaineSnippetDetail
@@ -78,7 +87,7 @@ const CodeSnippetDetail = ({ language, code }: IProps) => {
 				onMount={onMount}
 				handleRunCode={handleRunCode}
 				isRunning={output.isRunning}
-				isEditor
+				copyToClipboard={copyToClipboard}
 			/>
 			<OutputSnippetDetail {...output} />
 		</div>

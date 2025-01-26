@@ -41,7 +41,6 @@ export class GeminiController {
       const user = req.user;
       const { id } = req.params;
       const { error, value } = await geminiValidator.validate(req.body);
-      console.log("appConfig.GEMINI_API_KEY", appConfig.GEMINI_API_KEY);
 
       if (error) {
         throw new BadRequestException(error.message);

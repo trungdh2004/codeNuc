@@ -8,12 +8,13 @@ import { Sheet, SheetContent, SheetHeader } from "../ui/sheet";
 import { listRoomApi } from "@/services/gemini.service";
 import { RoomResponse } from "@/types/gemini.type";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 const HeaderAi = () => {
 	const { id } = useParams();
 	const [open, setOpen] = useState(false);
 	const [listChat, setListChat] = useState<RoomResponse[]>([]);
-
+	const { t } = useTranslation();
 	useEffect(() => {
 		(async () => {
 			try {
@@ -31,7 +32,7 @@ const HeaderAi = () => {
 		<>
 			<div className="sticky top-0 z-20 w-full border-b border-gray-800/50 bg-gray-950/80 backdrop-blur-xl backdrop-saturate-150">
 				<div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5" />
-				<div className=" mx-auto px-4 lg:px-6">
+				<div className=" mx-auto px-2 sm:px-4 md:px-6">
 					<div className="relative h-16 flex items-center justify-between">
 						<div className="flex items-center gap-8">
 							<div
@@ -43,7 +44,10 @@ const HeaderAi = () => {
 								<PanelRight size={20} />
 							</div>
 							{/* Logo */}
-							<Link to="/" className="flex items-center gap-3 group relative">
+							<Link
+								to="/"
+								className="flex items-center gap-3 group relative hidden sm:block"
+							>
 								{/* logo hover effect */}
 								<div
 									className="absolute -inset-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-lg opacity-0 
@@ -101,12 +105,12 @@ const HeaderAi = () => {
 					</SheetHeader>
 					<Link to={"/ai"}>
 						<Button variant={"secondary"} className="my-4 w-full">
-							<BotMessageSquare size={20} /> Đoạn chat mới
+							<BotMessageSquare size={20} /> {t("ai.newChat")}
 						</Button>
 					</Link>
 					<div className="flex-1 w-full overflow-y-auto scroll-style">
 						<div>
-							<span className="text-gray-500 text-sm">Đoạn chat</span>
+							<span className="text-gray-500 text-sm">Chat</span>
 						</div>
 						<div className="flex flex-col w-full gap-1">
 							{listChat.map((chat) => (

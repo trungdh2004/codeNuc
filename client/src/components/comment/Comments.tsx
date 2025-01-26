@@ -9,9 +9,11 @@ import { CommentResponse } from "@/types/comment.type";
 import { ResponseBase } from "@/types";
 import CommentItem from "./CommentItem";
 import Paginations from "../common/Pagination";
+import { useTranslation } from "react-i18next";
 
 const Comments = () => {
 	const { id } = useParams();
+	const { t } = useTranslation();
 	const { authUser } = useAuthContext();
 	const [pageIndex, setPageIndex] = useState(1);
 	const { isLoading, data, refetch } = useQuery<ResponseBase<CommentResponse>>({
@@ -40,7 +42,7 @@ const Comments = () => {
 			<div className="px-6 sm:px-8 py-6 border-b border-[#ffffff0a]">
 				<h2 className="text-lg font-semibold text-white flex items-center gap-2">
 					<MessageSquare className="w-5 h-5" />
-					Bình luận ({data?.totalAllOptions || 0})
+					{t("comment")} ({data?.totalAllOptions || 0})
 				</h2>
 			</div>
 
@@ -52,7 +54,7 @@ const Comments = () => {
 					/>
 				) : (
 					<div className="bg-[#0a0a0f] rounded-xl p-6 text-center mb-8 border border-[#ffffff0a]">
-						<p className="text-[#808086]">Đăng nhập để có thể bình luận</p>
+						<p className="text-[#808086]">{t("notLogin.notComment")}</p>
 						{/* <SignInButton mode="modal">
 							<button className="px-6 py-2 bg-[#3b82f6] text-white rounded-lg hover:bg-[#2563eb] transition-colors">
 								Sign In
@@ -83,7 +85,7 @@ const Comments = () => {
 						))}
 				</div>
 
-				{data?.totalPages && data?.totalPages > 1 && (
+				{!!data?.totalPages && data?.totalPages > 1 && (
 					<div className="flex items-center justify-center mt-4">
 						<Paginations
 							pageCount={data?.totalPages || 0}

@@ -19,6 +19,7 @@ import {
 	Terminal,
 } from "lucide-react";
 import { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Navigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -31,6 +32,7 @@ const ChatAIDetail = () => {
 			return data;
 		},
 	});
+	const { t } = useTranslation();
 	const [output, setOutput] = useState<{
 		isRunning: boolean;
 		error: string | null;
@@ -124,6 +126,16 @@ const ChatAIDetail = () => {
 		}
 	};
 
+	const copyToClipboard = () => {
+		navigator.clipboard
+			.writeText(editorRef.current?.getValue() || "")
+			.then(() => {
+				{
+					toast.success("Copied to clipboard");
+				}
+			});
+	};
+
 	return (
 		<div className="w-full min-h-screen h-full flex-col">
 			<title>AI thông minh - CodeNuc</title>
@@ -143,7 +155,7 @@ const ChatAIDetail = () => {
 			<meta property="og:type" content="website" />
 			<HeaderAi />
 
-			<div className="px-6 w-full mx-auto flex-1 h-full py-4">
+			<div className="px-2 sm:px-4 md:px-6 w-full mx-auto flex-1 h-full py-4">
 				<div className="w-full h-full grid grid-cols-1 md:grid-cols-12 gap-6">
 					<Conversation
 						id={id as string}
@@ -169,6 +181,7 @@ const ChatAIDetail = () => {
 								isRunning={output.isRunning}
 								isEditor
 								height="100%"
+								copyToClipboard={copyToClipboard}
 							/>
 						</div>
 						<div className="w-full  rounded-b-sm h-2/5  bg-[#121218] border-t border-blue-500/50 ">
@@ -184,7 +197,7 @@ const ChatAIDetail = () => {
 									</div>
 
 									<div className="flex items-center gap-2">
-										<CopyButton code={""} />
+										<CopyButton code={output.error || output.output} />
 									</div>
 								</div>
 
@@ -195,7 +208,7 @@ const ChatAIDetail = () => {
 										<div className="flex h-full items-start gap-3 text-red-400 overflow-hidden">
 											<AlertTriangle className="w-5 h-5 flex-shrink-0 mt-1" />
 											<div className="space-y-1 md:max-h-44 overflow-y-auto scroll-style">
-												<div className="font-medium">Thất bại</div>
+												<div className="font-medium">{t("failure")}</div>
 												<pre className="whitespace-pre-wrap text-red-400/80">
 													{output.error}
 												</pre>
@@ -205,7 +218,7 @@ const ChatAIDetail = () => {
 										<div className="space-y-2">
 											<div className="flex text-sm items-center gap-2 text-emerald-400 mb-3">
 												<CheckCircle className="w-5 h-5" />
-												<span className="font-medium">Thành công</span>
+												<span className="font-medium">{t("success")}</span>
 											</div>
 											<pre className="whitespace-pre-wrap text-gray-300 text-sm">
 												{output.output}
@@ -220,9 +233,7 @@ const ChatAIDetail = () => {
 												<div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gray-800/50 ring-1 ring-gray-700/50 mb-4">
 													<Clock className="w-6 h-6" />
 												</div>
-												<p className="text-center">
-													Chạy mã của bạn để xem kết quả ở đây...
-												</p>
+												<p className="text-center">{t("outPanel.notRun")}</p>
 											</div>
 										</div>
 									)}

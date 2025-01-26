@@ -9,6 +9,7 @@ import { useMutation } from "@tanstack/react-query";
 import { createCommentApi } from "@/services/comment.service";
 import { CommentDto } from "@/types/comment.type";
 import { commentType } from "@/config/comment.config";
+import { useTranslation } from "react-i18next";
 
 const CommentForm = ({
 	parent,
@@ -17,6 +18,7 @@ const CommentForm = ({
 	parent: string;
 	handlePageIndex: () => void;
 }) => {
+	const { t } = useTranslation();
 	const [preview, setPreview] = useState<boolean>(false);
 	const [comment, setComment] = useState("");
 	const { mutate, isPending } = useMutation({
@@ -80,7 +82,7 @@ const CommentForm = ({
 						type="button"
 					>
 						<Edit className="size-3" />
-						Viết
+						{t("write")}
 					</button>
 					<button
 						onClick={() => setPreview(true)}
@@ -93,7 +95,7 @@ const CommentForm = ({
 						type="button"
 					>
 						<Eye className="size-3" />
-						Xem trước
+						{t("preview")}
 					</button>
 				</div>
 			</div>
@@ -132,7 +134,9 @@ const CommentForm = ({
 						) : (
 							<Send size={14} />
 						)}
-						<span className="text-sm font-medium text-white ">Bình luận</span>
+						<span className="text-sm font-medium text-white ">
+							{t("comment")}
+						</span>
 					</motion.button>
 				</div>
 			</form>

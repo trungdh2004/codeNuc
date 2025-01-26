@@ -14,12 +14,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { toast } from "sonner";
-import ConfirmDialog from "../components/common/ConfirmDialog";
 import { Bot, Clock, Loader, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { listRoomApi, removeRoomApi } from "@/services/gemini.service";
 import { RoomResponse } from "@/types/gemini.type";
 import { useAuthContext } from "@/context/AuthProvider";
+import ConfirmDialog from "@/components/common/ConfirmDialog";
 const ProfilePage = () => {
 	const query = useQueryClient();
 	const { authUser } = useAuthContext();
@@ -83,7 +83,7 @@ const ProfilePage = () => {
 	};
 
 	return (
-		<div className="mx-auto max-w-5xl py-10 px-2 sm:px-4">
+		<div className="mx-auto max-w-5xl py-10 px-4">
 			<div>
 				<div
 					className="w-full bg-gradient-to-tr from-blue-800/50 to-indigo-600/50 h-32 rounded-lg relative
@@ -108,7 +108,7 @@ const ProfilePage = () => {
 			<div className="w-full mt-20">
 				<Tabs defaultValue="account" className="w-full">
 					<TabsList className=" max-w-sm  grid w-full grid-cols-2 bg-gray-500/30">
-						<TabsTrigger value="account">Bài code</TabsTrigger>
+						<TabsTrigger value="account">Code</TabsTrigger>
 						<TabsTrigger value="password">AI</TabsTrigger>
 					</TabsList>
 					<TabsContent value="account" className="w-full">

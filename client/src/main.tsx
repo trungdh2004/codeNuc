@@ -6,6 +6,7 @@ import { appConfig } from "./config/appConfig.ts";
 import { AuthProvider } from "./context/AuthProvider.tsx";
 import QueryProvider from "./context/QueryProvider.tsx";
 import "./index.css";
+import "./config/multilingual.ts";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<QueryProvider>

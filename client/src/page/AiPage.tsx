@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import { Loader, Send } from "lucide-react";
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 const AiPage = () => {
@@ -26,6 +27,7 @@ const AiPage = () => {
 			toast.error("Lỗi tạo thất bại");
 		},
 	});
+	const { t } = useTranslation();
 	const [language, setLanguage] = useState("javascript");
 	const [content, setContent] = useState("");
 	const handleLanguage = (value: string) => {
@@ -67,23 +69,21 @@ const AiPage = () => {
 				<meta property="og:url" content="https://codenuc.vercel.app/editor" />
 				<meta property="og:type" content="website" />
 			</Helmet>
-			<div className="flex flex-col items-center mt-28 justify-center gap-2 p-10">
+			<div className="flex flex-col items-center mt-28 justify-center gap-2 p-4 md:p-10">
 				<h2
-					className="font-bold text-4xl bg-gradient-to-r
-                 from-blue-400 via-blue-300 to-purple-400 text-transparent bg-clip-text"
+					className="font-bold text-2xl md:text-4xl bg-gradient-to-r
+                 from-blue-400 via-blue-300 text-center to-purple-400 text-transparent bg-clip-text"
 				>
-					Bạn muốn xây dựng gì ?
+					{t("ai.title")}
 				</h2>
-				<p className="text-gray-400 font-medium">
-					Khởi tạo, hỗ trợ, fix bug đa dạng các ngôn ngữ
-				</p>
+				<p className="text-gray-400 text-sm md:text-base font-medium text-center">{t("ai.description")}</p>
 
 				<div className="p-4 border border-gray-500/50 rounded-xl max-w-xl w-full mt-3 bg-[#1e1e2e]">
 					<form action="" onSubmit={handleSubmit}>
 						<div>
 							<textarea
 								className="w-full min-h-28 bg-transparent  outline-none resize-none scroll-style"
-								placeholder="Bạn muốn hỗ trợ gì...."
+								placeholder={t("ai.placeholder")}
 								value={content}
 								onChange={(e) => setContent(e.target.value)}
 								autoFocus

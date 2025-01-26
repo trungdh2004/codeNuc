@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { CodeIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface IProps {
 	handleLanguage: (value: string) => void;
@@ -12,7 +13,7 @@ interface IProps {
 const CommentLanguage = ({ handleLanguage, value, className }: IProps) => {
 	const [open, setOpen] = useState(false);
 	const dropdownRef = useRef<HTMLDivElement | null>(null);
-
+	const { t } = useTranslation();
 	useEffect(() => {
 		const handleClickOutsize = (event: MouseEvent) => {
 			if (
@@ -51,12 +52,10 @@ const CommentLanguage = ({ handleLanguage, value, className }: IProps) => {
 						animate={{ opacity: 1, y: 0, scale: 1 }}
 						exit={{ opacity: 0, y: 8, scale: 0.96 }}
 						transition={{ duration: 0.2 }}
-						className="absolute bottom-0 left-full w-full mt-2 min-w-[240px] bg-[#1e1e2e]/95 backdrop-blur-xl rounded-md border border-[#313244] shadow-2xl py-2 z-50"
+						className="absolute bottom-full left-0 sm:bottom-0 sm:left-full w-full mt-2 min-w-[200px] sm:min-w-[240px] bg-[#1e1e2e]/95 backdrop-blur-xl rounded-md border border-[#313244] shadow-2xl py-2 z-50"
 					>
 						<div className="px-2 pb-1 mb-1 border-b border-gray-800/50">
-							<p className="text-xs font-medium text-gray-400 px-2">
-								Chọn ngôn ngữ
-							</p>
+							<p className="text-xs font-medium text-gray-400 px-2">{t("selectedLang")}</p>
 						</div>
 
 						<div className="max-h-[240px] overflow-y-auto scroll-style overflow-x-hidden px-1">

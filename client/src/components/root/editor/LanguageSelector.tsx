@@ -4,12 +4,14 @@ import { useCodeEditorStore } from "@/store/useCodeEditor.store";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDownIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const LanguageSelector = () => {
 	const [isOpen, setOpen] = useState(false);
 	const { language, setLanguage } = useCodeEditorStore();
 	const dropdownRef = useRef<HTMLDivElement | null>(null);
 	const currentLanguage = LANGUAGE_CONFIG[language];
+	const { t } = useTranslation();
 	useEffect(() => {
 		const handleClickOutsize = (event: MouseEvent) => {
 			if (
@@ -31,7 +33,7 @@ const LanguageSelector = () => {
 				whileTap={{ scale: 0.98 }}
 				onClick={() => setOpen((prev) => !prev)}
 				className={cn(
-					"relative w-40 group flex items-center gap-2 px-2.5 py-1.5 bg-[#1e1e2e]/80 hover:bg-[#262637] rounded-lg transition-lg transition-all duration-200 border border-gray-800/50 hover:border-gray-700 text-sm",
+					"relative w-32 md:w-40 group flex items-center gap-2 px-2.5 py-1.5 bg-[#1e1e2e]/80 hover:bg-[#262637] rounded-lg transition-lg transition-all duration-200 border border-gray-800/50 hover:border-gray-700 text-sm",
 				)}
 			>
 				<div
@@ -53,7 +55,7 @@ const LanguageSelector = () => {
 
 				<ChevronDownIcon
 					className={cn(
-						`size-4 text-gray-400 transition-all duration-300 group-hover:text-gray-300`,
+						`hidden md:block size-4 text-gray-400 transition-all duration-300 group-hover:text-gray-300`,
 						isOpen ? "rotate-180" : "",
 					)}
 				/>
@@ -66,11 +68,11 @@ const LanguageSelector = () => {
 						animate={{ opacity: 1, y: 0, scale: 1 }}
 						exit={{ opacity: 0, y: 8, scale: 0.96 }}
 						transition={{ duration: 0.2 }}
-						className="absolute top-full left-0 w-full mt-2 min-w-[240px] bg-[#1e1e2e]/95 backdrop-blur-xl rounded-md border border-[#313244] shadow-2xl py-2 z-50"
+						className="absolute top-full right-0 md:left-0 w-full mt-2 min-w-[200px] sm:min-w-[240px] bg-[#1e1e2e]/95 backdrop-blur-xl rounded-md border border-[#313244] shadow-2xl py-2 z-50"
 					>
 						<div className="px-2 pb-1 mb-1 border-b border-gray-800/50">
 							<p className="text-xs font-medium text-gray-400 px-2">
-								Chọn ngôn ngữ
+								{t("selectedLang")}
 							</p>
 						</div>
 

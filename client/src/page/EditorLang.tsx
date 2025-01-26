@@ -26,7 +26,7 @@ const EditorLang = () => {
 			<div className="max-w-[1800px] mx-auto p-4 flex flex-col min-h-screen">
 				<HeaderLang />
 
-				<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 flex-1">
+				<div className="grid grid-cols-1 lg:grid-cols-2 gap-4 flex-1 ">
 					<CodePanel />
 					<OutputPanel />
 				</div>

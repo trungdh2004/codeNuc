@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import SliderInfinite from "@/components/home/SliderInfinite";
 import { Link } from "react-router-dom";
 import { MdTextSnippet } from "react-icons/md";
+import { useTranslation } from "react-i18next";
 
 const code = `
 // JavaScript Playground
@@ -25,6 +26,8 @@ console.log('Sum of numbers:', sum);
 `;
 
 const HomePage = () => {
+	const { t } = useTranslation();
+
 	return (
 		<div className="max-w-7xl py-8 mx-auto h-full px-4 overflow-x-hidden">
 			<section className="flex items-center justify-center lg:justify-between h-[80vh] lg:h-auto relative pb-10">
@@ -49,7 +52,7 @@ const HomePage = () => {
 							className="text-4xl sm:text-5xl md:text-7xl font-bold bg-gradient-to-r
                  from-blue-400 via-blue-300 to-purple-400 text-transparent bg-clip-text text-center lg:text-start my-4"
 						>
-							CodeNuc chạy mã nhanh chóng
+							{t("home.title")}
 						</h1>
 					</motion.div>
 					<motion.div
@@ -68,8 +71,7 @@ const HomePage = () => {
 						}}
 					>
 						<h3 className="text-base sm:text-lg md:text-xl text-center lg:text-start">
-							Chạy mã lập trình trực tuyến nhanh chóng và dễ dàng. Hỗ trợ nhiều
-							ngôn ngữ như Python, JavaScript, C++, và hơn thế nữa!
+							{t("home.description")}
 						</h3>
 					</motion.div>
 
@@ -102,7 +104,7 @@ const HomePage = () => {
                  transition-colors bg-gradient-to-r
                  from-blue-400 via-blue-300 to-purple-400 bg-clip-text text-transparent"
 								>
-									Bắt đầu
+									{t("home.start")}
 								</span>
 							</div>
 						</Link>
@@ -149,7 +151,7 @@ const HomePage = () => {
 						}}
 						className="text-3xl text-center font-semibold w-full"
 					>
-						Chức năng chính
+						{t("home.main")}
 					</motion.h1>
 					<motion.p
 						initial={{
@@ -165,9 +167,7 @@ const HomePage = () => {
 						}}
 						className="text-sm md:text-base text-center text-gray-500 max-w-xl"
 					>
-						Khám phá nền tảng chạy mã trực tuyến hỗ trợ đa ngôn ngữ lập trình.
-						Không cần cài đặt, chạy mã nhanh chóng và chia sẻ dễ dàng chỉ trong
-						vài giây.
+						{t("home.mainDescription")}
 					</motion.p>
 				</div>
 
@@ -196,12 +196,10 @@ const HomePage = () => {
 								<MdTextSnippet className="size-6 sm:size-8 md:size-10 " />
 							</div>
 							<h2 className="mt-4 text-base md:text-lg font-bold text-gray-200">
-								Chia Sẻ và Khám Phá Mã Code
+								{t("home.title1Primary")}
 							</h2>
 							<p className="text-sm md:text-base text-gray-400">
-								Dễ dàng chia sẻ mã lập trình của bạn với cộng đồng lập trình
-								viên trên toàn thế giới. Hỗ trợ đa ngôn ngữ và xem kết quả ngay
-								lập tức.
+								{t("home.description1Primary")}
 							</p>
 						</Link>
 					</motion.div>
@@ -228,12 +226,10 @@ const HomePage = () => {
 								<Code className="size-6 sm:size-8 md:size-10 " />
 							</div>
 							<h2 className="mt-4 text-base md:text-lg font-bold text-gray-200">
-								Chạy code online - Nhanh và tiện lợi
+								{t("home.title2Primary")}
 							</h2>
 							<p className="text-sm md:text-base text-gray-400">
-								Trình chạy mã trực tuyến mạnh mẽ, hỗ trợ đa ngôn ngữ. Dễ dàng
-								viết, chạy và kiểm tra kết quả ngay lập tức chỉ với một cú nhấp
-								chuột.
+								{t("home.description2Primary")}
 							</p>
 						</Link>
 					</motion.div>
@@ -261,11 +257,10 @@ const HomePage = () => {
 								<Bot className="size-6 sm:size-8 md:size-10 " />
 							</div>
 							<h2 className="mt-4 text-base md:text-lg font-bold text-gray-200">
-								Trình tạo mã code bằng AI
+								{t("home.title3Primary")}
 							</h2>
 							<p className="text-sm md:text-base text-gray-400">
-								AI thông minh giúp bạn viết code một cách nhanh chóng và chính
-								xác. Hỗ trợ Python, JavaScript, C++, ...
+								{t("home.description3Primary")}
 							</p>
 						</Link>
 					</motion.div>
@@ -288,7 +283,7 @@ const HomePage = () => {
 						}}
 						className="text-3xl text-center font-semibold w-full"
 					>
-						Trình chạy code online
+						{t("home.titleCode")}
 					</motion.h1>
 					<motion.p
 						initial={{
@@ -304,8 +299,7 @@ const HomePage = () => {
 						}}
 						className="text-sm md:text-base text-center text-gray-500 max-w-xl"
 					>
-						Trình chạy mã trực tuyến mạnh mẽ, hỗ trợ đa ngôn ngữ. Dễ dàng viết,
-						chạy và kiểm tra kết quả ngay lập tức chỉ với một cú nhấp chuột.
+						{t("home.descriptionCode")}
 					</motion.p>
 				</div>
 				<motion.div
@@ -340,7 +334,7 @@ const HomePage = () => {
 						}}
 						className="text-3xl text-center font-semibold w-full"
 					>
-						Tạo mã code bằng Gemini
+						{t("home.titleAi")}
 					</motion.h1>
 					<motion.p
 						initial={{
@@ -356,8 +350,7 @@ const HomePage = () => {
 						}}
 						className="text-sm md:text-base text-center text-gray-500 max-w-xl"
 					>
-						AI thông minh giúp bạn viết code một cách nhanh chóng và chính xác.
-						Hỗ trợ Python, JavaScript, C++, ...
+						{t("home.descriptionAi")}
 					</motion.p>
 				</div>
 				<motion.div

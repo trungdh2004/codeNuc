@@ -4,12 +4,15 @@ import { Link } from "react-router-dom";
 import LanguageSelector from "./editor/LanguageSelector";
 import ThemeSelector from "./editor/ThemeSelector";
 import ButtonProfile from "../ButtonProfile";
+import { useTranslation } from "react-i18next";
+import Logo from "../Logo";
 
 const HeaderLang = () => {
+	const { t } = useTranslation();
 	return (
 		<div className="relative z-10">
-			<div className="flex items-center lg:justify-between justify-center bg-[#0a0a0f]/80 backdrop-blur-xl py-2 px-6 mb-4 rounded-md">
-				<div className="hidden lg:flex items-center gap-8">
+			<div className="flex items-center justify-between  bg-[#0a0a0f]/80 backdrop-blur-xl py-2 px-2 md:px-6 mb-4 rounded-md">
+				<div className="hidden md:flex items-center gap-8">
 					<Link to="/" className="flex items-center gap-3 group relative">
 						{/* Logo hover effect */}
 
@@ -26,7 +29,7 @@ const HeaderLang = () => {
 							<Blocks className="size-5 text-blue-400 transform -rotate-6 group-hover:rotate-0 transition-transform duration-500" />
 						</div>
 
-						<div className="flex flex-col">
+						<div className=" flex-col hidden lg:flex">
 							<span className="block text-base font-semibold bg-gradient-to-r from-blue-400 via-blue-300 to-purple-400 text-transparent bg-clip-text">
 								CodeNuc
 							</span>
@@ -37,7 +40,7 @@ const HeaderLang = () => {
 					</Link>
 
 					{/* Navigation */}
-					<nav className="flex items-center space-x-1">
+					<nav className="flex items-center space-x-1 hidden lg:flex">
 						<Link
 							to="/snippets"
 							className="relative group flex items-center gap-2 px-2 py-1.5 rounded-md text-gray-300 bg-gray-800/50 
@@ -52,19 +55,20 @@ const HeaderLang = () => {
 								className="text-xs font-medium relative z-10 group-hover:text-white
                  transition-colors"
 							>
-								Khám phá
+								{t("navigator.snippet")}
 							</span>
 						</Link>
 					</nav>
 				</div>
 
-				<div className="flex items-center gap-4">
-					<div className="flex items-center gap-3">
+				<div className="flex max-md:w-full items-center gap-4 flex-col-reverse md:flex-row">
+					<div className="flex w-full justify-center md:items-center gap-3">
 						<ThemeSelector />
 						<LanguageSelector />
 					</div>
 
-					<div className="pl-3 border-l border-gray-800">
+					<div className="md:pl-3 md:border-l border-gray-800 flex items-center justify-between w-full">
+						<Logo className=" md:hidden size-8 flex items-center justify-center p-1 rounded-md" />
 						<ButtonProfile />
 					</div>
 				</div>

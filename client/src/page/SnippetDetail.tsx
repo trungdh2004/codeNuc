@@ -6,11 +6,13 @@ import { SnippetResponse } from "@/types/snippet.type";
 import { useQuery } from "@tanstack/react-query";
 import { Clock, MessageSquare, User } from "lucide-react";
 import { Helmet } from "react-helmet";
+import { useTranslation } from "react-i18next";
 import { Navigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 const SnippetDetail = () => {
 	const { id } = useParams();
+	const { t } = useTranslation();
 	const { isLoading, data, error } = useQuery<SnippetResponse>({
 		queryKey: ["detailSnippet", id],
 		queryFn: async () => {
@@ -68,7 +70,9 @@ const SnippetDetail = () => {
 								</div>
 								<div className="flex items-center gap-2 text-[#8b8b8d]">
 									<MessageSquare className="w-4 h-4" />
-									<span>{data?.countComment} bình luận</span>
+									<span>
+										{data?.countComment} {t("comment")}
+									</span>
 								</div>
 							</div>
 						</div>
@@ -87,7 +91,9 @@ const SnippetDetail = () => {
 			{data?.description && (
 				<div className="bg-[#121218] border border-[#ffffff0a] rounded-md  mb-6 backdrop-blur-xl">
 					<div className="px-6 py-2 border-b border-gray-500/50">
-						<h5 className="text-lg font-semibold text-white">Mô tả</h5>
+						<h5 className="text-lg font-semibold text-white">
+							{t("description")}
+						</h5>
 					</div>
 					<div className="py-2 px-6 ">
 						<pre className="font-[sans-serif]">{data.description}</pre>

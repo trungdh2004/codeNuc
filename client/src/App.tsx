@@ -1,9 +1,9 @@
+import { Helmet } from "react-helmet";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
-import RootRouter from "./routers/RootRouter.routes";
-import LoginModel from "./components/LoginModel";
 import LoadingModel from "./components/LoadingModel";
-import { Helmet } from "react-helmet";
+import LoginModel from "./components/LoginModel";
+import RootRouter from "./routers/RootRouter.routes";
 
 function App() {
 	const router = createBrowserRouter([...RootRouter]);
