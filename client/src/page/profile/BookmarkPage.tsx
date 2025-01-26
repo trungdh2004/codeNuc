@@ -12,9 +12,11 @@ import { BookMarkType } from "@/types/blogs.type";
 import { PopoverClose } from "@radix-ui/react-popover";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { AiOutlineDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 const BookmarkPage = () => {
+	const { t } = useTranslation();
 	const queryClient = useQueryClient();
 	const { data, isLoading } = useQuery<BookMarkType[]>({
 		queryKey: ["bookMark", "me"],
@@ -38,7 +40,7 @@ const BookmarkPage = () => {
 
 	return (
 		<div className="mx-auto max-w-7xl py-10 px-4 ">
-			<h1 className="text-xl font-bold text-white">Bài viết đã lưu</h1>
+			<h1 className="text-xl font-bold text-white">{t("titleBookmark")}</h1>
 
 			<div className={`grid gap-8 grid-cols-1 md:grid-cols-2 mt-4`}>
 				{data &&

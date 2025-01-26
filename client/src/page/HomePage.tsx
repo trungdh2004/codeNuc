@@ -155,7 +155,7 @@ const HomePage = () => {
 					</motion.h1>
 					<motion.p
 						initial={{
-							x: 20,
+							y: 20,
 							opacity: 0,
 						}}
 						whileInView={{
@@ -287,7 +287,7 @@ const HomePage = () => {
 					</motion.h1>
 					<motion.p
 						initial={{
-							x: 20,
+							y: 20,
 							opacity: 0,
 						}}
 						whileInView={{
@@ -338,7 +338,7 @@ const HomePage = () => {
 					</motion.h1>
 					<motion.p
 						initial={{
-							x: 20,
+							y: 20,
 							opacity: 0,
 						}}
 						whileInView={{

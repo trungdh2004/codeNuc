@@ -77,7 +77,8 @@ const enLanguage = {
         max:"Max length"
       },
       confirm:"Confirm",
-      notValue:"There were no results!!!"
+      notValue:"There were no results!!!",
+      titleBookmark:"Bookmark",
     },
 }
 

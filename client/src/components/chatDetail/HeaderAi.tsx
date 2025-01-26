@@ -46,7 +46,7 @@ const HeaderAi = () => {
 							{/* Logo */}
 							<Link
 								to="/"
-								className="flex items-center gap-3 group relative hidden sm:block"
+								className=" items-center gap-3 group relative hidden sm:flex"
 							>
 								{/* logo hover effect */}
 								<div

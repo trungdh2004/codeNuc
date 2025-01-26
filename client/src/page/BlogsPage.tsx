@@ -11,7 +11,7 @@ import { BlogsType } from "@/types/blogs.type";
 import { queryBlog } from "@/utils/fetchBlog";
 import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
-import { X } from "lucide-react";
+import { ArrowRight, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -117,9 +117,11 @@ const BlogsPage = () => {
 			</Helmet>
 			<div className="" ref={refBottom}></div>
 			<div
-				className="fixed bottom-4 right-4 size-10 bg-white rounded-full hidden md:block"
+				className="fixed bottom-4 right-4 size-10 bg-white rounded-full hidden md:flex cursor-pointer items-center justify-center"
 				onClick={scrollBottom}
-			></div>
+			>
+				<ArrowRight size={20} className="text-black -rotate-90" />
+			</div>
 
 			<div className="flex flex-wrap items-center gap-2 sm:gap-4 mb-4 ">
 				<LanguageSelected

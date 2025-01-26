@@ -75,7 +75,8 @@ const viLanguage = {
       reset:"Đặt lại",
       cancel:"Hủy",
       posted:"Đăng tải",
-      notValue:"Không có kết quả nào!!!"
+      notValue:"Không có kết quả nào!!!",
+      titleBookmark:"Bài viết đã lưu",
     },
 }
 

@@ -18,7 +18,7 @@ import {
 	Loader,
 	Terminal,
 } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Navigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
@@ -45,6 +45,14 @@ const ChatAIDetail = () => {
 	const [loadingAI, setLoadingAI] = useState(false);
 	const editorRef = useRef<MonacoEditor | null>(null);
 	const [language, setLanguage] = useState("javascript");
+
+	useEffect(() => {
+		setOutput({
+			isRunning: false,
+			error: null,
+			output: "",
+		});
+	}, [id]);
 
 	const handleSetCode = (code: string, language: string) => {
 		if (editorRef.current) {

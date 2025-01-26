@@ -1,6 +1,6 @@
 export const generateFormQuestionPrompt = (
   content: string,
-  language: string
+  language: string,
 ) => {
   return `
     Bạn là trợ lý AI chuyên nghiệp trong việc tạo mã code theo yêu cầu của người dùng và dựa vào ngôn ngữ người dùng yêu cầu. Dựa trên mô tả của người dùng, tạo mã code thích hợp:
@@ -25,6 +25,6 @@ Phân tích yêu cầu của người dùng và xác định loại hành độn
 \`\`\`
 ---
 ### Important:
-- Bạn phải trả lời message là tiếng việt
+- Nếu người dùng yêu cầu bằng tiếng việt trả lời tiếng việt nếu yêu cầu tiếng anh trả lời tiếng anh
     `;
 };
