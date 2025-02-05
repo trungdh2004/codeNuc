@@ -5,6 +5,7 @@ import { BadRequestException } from "../../utils/catchError";
 import { HTTPSTATUS } from "../../config/http.config";
 import { defaultCookieRefresh } from "../../utils/cookie";
 import { RequestUser } from "../../interface/system";
+import RequestModel from "../../models/Request.model";
 
 export class AuthController {
   private authService: AuthService;
@@ -71,6 +72,21 @@ export class AuthController {
 
     return res.clearCookie("refresh").status(HTTPSTATUS.OK).json({
       message: "Đăng xuất thành công",
+    });
+  });
+
+
+  public createRequest = asyncHandler(async (req: Request, res: Response) => {
+    const locationIP = req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+        const userAgent = req.headers['user-agent'];
+
+      await RequestModel.create({
+        ip:locationIP,
+        userAgent
+      })
+
+    return res.status(HTTPSTATUS.OK).json({
+      message: "OK",
     });
   });
 }

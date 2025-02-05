@@ -7,3 +7,4 @@ export const loginApi = (token: string) =>
 
 export const currentApi = () => instance.get("/auth/current");
 export const logoutApi = () => instance.get("/auth/logout");
+export const requestApi = () => instance.get("/auth/request");

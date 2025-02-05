@@ -1,5 +1,5 @@
 import LoadingFixed from "@/components/LoadingFixed";
-import { currentApi } from "@/services/user.service";
+import { currentApi, requestApi } from "@/services/user.service";
 import {
 	createContext,
 	Dispatch,
@@ -43,20 +43,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 				const { data } = await currentApi();
 				setAuthUser(data);
 				setIsLoggedIn(true);
-				// if (data.data._id) {
-				// 	const role = data.data.is_admin || data.data.is_staff;
-				// 	const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
-				// 		process.env.SERVER_SOCKET_URL!,
-				// 		{
-				// 			query: {
-				// 				userId: data.data._id,
-				// 				role: role ? "admin" : "user",
-				// 			},
-				// 		},
-				// 	);
-				// 	setSocket(socket);
-				// 	console.log({ socket });
-				// }
+			
 			} catch (error: unknown) {
 				console.log("error", error);
 
@@ -73,6 +60,12 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 			// }
 		};
 	}, []);
+
+	useEffect(() => {
+		(() => {
+			requestApi()
+		})()
+	},[])
 
 	if (isLoading) {
 		return <LoadingFixed />;
