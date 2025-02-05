@@ -43,7 +43,6 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 				const { data } = await currentApi();
 				setAuthUser(data);
 				setIsLoggedIn(true);
-			
 			} catch (error: unknown) {
 				console.log("error", error);
 
@@ -63,9 +62,15 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
 
 	useEffect(() => {
 		(() => {
-			requestApi()
-		})()
-	},[])
+			fetch("https://api64.ipify.org?format=json")
+				.then((res) => res.json())
+				.then((data) => {
+					console.log("data", data);
+
+					requestApi(data.ip as string);
+				});
+		})();
+	}, []);
 
 	if (isLoading) {
 		return <LoadingFixed />;

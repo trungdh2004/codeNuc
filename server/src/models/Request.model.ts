@@ -4,11 +4,12 @@ const TagsSchema = new mongoose.Schema(
   {
     ip: {
       type: String,
-      required: true,
     },
     userAgent: {
       type: String,
-      required: true,
+    },
+    ip2: {
+      type: String,
     },
   },
   {
