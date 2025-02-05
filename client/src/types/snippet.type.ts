@@ -1,4 +1,5 @@
-import { PagingDtoBase } from "./../../../server/src/interface/system";
+import { PagingDtoBase } from "./gemini.type";
+
 export interface SnippetDto {
 	code: string;
 	title: string;

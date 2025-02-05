@@ -1,8 +1,14 @@
-import { PagingDtoBase } from './../../../server/src/interface/system';
+
 
 export interface NewRoomDto {
     message:string;
     language:string;
+}
+
+export interface PagingDtoBase {
+  pageIndex: number;
+  pageSize: number;
+  keyword: string;
 }
 
 export interface RoomResponse {
