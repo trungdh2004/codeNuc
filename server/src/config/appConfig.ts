@@ -2,7 +2,7 @@ import { getEnv } from "../utils/getEnv";
 
 const funcConfig = () => ({
   NODE_ENV: getEnv("NODE_ENV", "development"),
-  URL_CLIENT: getEnv("URL_CLIENT", "http://localhost:4000"),
+  URL_CLIENT: getEnv("URL_CLIENT"),
   PORT: getEnv("PORT", "8000"),
   DB_URL: getEnv("DB_URL", "mongodb://localhost:27017/codeNuc"),
   COOKIE_EXPIRES_IN: getEnv("COOKIE_EXPIRES_IN"),

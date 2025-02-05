@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import "dotenv/config";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -26,6 +26,12 @@ app.use(express.json());
 dbConnect();
 app.use("/api/v1", router);
 app.use(errorhandler);
+app.get("/",(req:Request,res:Response)=>{
+   res.json({
+    urlClient: appConfig.URL_CLIENT,
+   })
+   return 
+})    
 
 app.listen(appConfig.PORT, () => {
   console.log("running http://localhost:" + appConfig.PORT);
