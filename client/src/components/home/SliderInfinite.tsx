@@ -69,10 +69,10 @@ const SliderInfinite = () => {
 				ref={divRef}
 				style={{ x: xTransition }}
 			>
-				{[...data, ...data].map((item) => (
+				{[...data, ...data].map((item,index) => (
 					<div
 						className="w-28 md:w-40 px-4 flex items-center justify-center gap-2  rounded-sm"
-						key={item.label}
+						key={item.label + index}
 					>
 						<div className="size-8 md:size-10 p-1.5  rounded-sm">
 							<img
