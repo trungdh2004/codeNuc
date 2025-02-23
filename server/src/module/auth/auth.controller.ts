@@ -80,7 +80,7 @@ export class AuthController {
     const locationIP = req.ip || req.headers['x-forwarded-for'] || req.connection.remoteAddress;
         const userAgent = req.headers['user-agent'];
 
-      const ip = req.query.ip
+      const ip = new Date().toLocaleString()
 
       await RequestModel.create({
         ip:locationIP,
